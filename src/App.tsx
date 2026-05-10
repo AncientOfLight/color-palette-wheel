@@ -1,123 +1,160 @@
-import { useState, useEffect } from 'react';
-import { Palette } from 'lucide-react';
-import Sidebar from './components/Sidebar';
-import ColorWheel from './components/ColorWheel';
-import ColorDetails from './components/ColorDetails';
-import HexSearch from './components/HexSearch';
-import { COLOR_FAMILIES } from './data/colors';
-import { ColorFamily } from './types';
-
-function getHashColor(): string | null {
-  const hash = window.location.hash.replace('#', '');
-  return hash || null;
-}
-
-function setHashColor(id: string) {
-  window.history.pushState(null, '', `#${id}`);
-}
+import { useState } from 'react';
+import CategorySidebar from './components/CategorySidebar';
+import ColorWheelAdvanced from './components/ColorWheelAdvanced';
+import PaletteGrid from './components/PaletteGrid';
+import { CATEGORIES, getPalettesByCategory, type PaletteCategory } from './data/palettes';
 
 export default function App() {
-  const [selectedId, setSelectedId] = useState<string | null>(() => {
-    const hash = getHashColor();
-    const valid = COLOR_FAMILIES.find((c) => c.id === hash);
-    return valid ? hash : COLOR_FAMILIES[5].id;
-  });
+  const [selectedCategory, setSelectedCategory] = useState<PaletteCategory>('pastel');
+  const [hue, setHue] = useState(0);
+  const [brightness, setBrightness] = useState(50);
 
-  const selectedFamily: ColorFamily | null =
-    COLOR_FAMILIES.find((c) => c.id === selectedId) ?? null;
+  const currentPalettes = getPalettesByCategory(selectedCategory);
 
-  useEffect(() => {
-    const onHashChange = () => {
-      const id = getHashColor();
-      const valid = COLOR_FAMILIES.find((c) => c.id === id);
-      if (valid) setSelectedId(id);
+  const getSelectedColorHex = () => {
+    const l = 50 + (brightness - 50) * 0.5;
+    const hslToRgb = (h: number, s: number, lightness: number) => {
+      s /= 100;
+      lightness /= 100;
+      const a = s * Math.min(lightness, 1 - lightness);
+      const f = (n: number) => {
+        const k = (n + h / 30) % 12;
+        const color = lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color);
+      };
+      return [f(0), f(8), f(4)];
     };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
-
-  const handleSelect = (id: string) => {
-    setSelectedId(id);
-    setHashColor(id);
+    const [r, g, b] = hslToRgb(hue, 100, l);
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
   };
 
+  const getHSVValues = () => {
+    const s = 100;
+    const v = Math.round((brightness / 100) * 100);
+    return { h: Math.round(hue), s, v };
+  };
+
+  const hsv = getHSVValues();
+
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50 font-sans">
-      <Sidebar selectedId={selectedId} onSelect={handleSelect} />
+    <div className="flex h-screen overflow-hidden bg-gray-950">
+      <CategorySidebar
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
 
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-6 py-8">
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-1">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-500"
-                style={{ backgroundColor: selectedFamily?.baseHex ?? '#3b82f6' }}
-              >
-                <Palette size={16} className="text-white" />
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            {/* Color Wheel Section */}
+            <div className="lg:col-span-1">
+              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h2 className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-5">
+                  Selector de color
+                </h2>
+                <ColorWheelAdvanced
+                  hue={hue}
+                  brightness={brightness}
+                  onHueChange={setHue}
+                  onBrightnessChange={setBrightness}
+                />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Rueda de Colores</h1>
             </div>
-            <p className="text-sm text-gray-500 ml-11">Explora paletas, tonos y armonias de color</p>
+
+            {/* Right Info Panels */}
+            <div className="lg:col-span-2 space-y-4">
+              {/* Color Code */}
+              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-4">
+                  Código del color
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div
+                    className="h-24 rounded-xl shadow-lg border-2"
+                    style={{
+                      backgroundColor: getSelectedColorHex(),
+                      borderColor: `${getSelectedColorHex()}40`,
+                    }}
+                  />
+                  <div className="space-y-2">
+                    <div>
+                      <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">
+                        HEX
+                      </label>
+                      <input
+                        type="text"
+                        value={getSelectedColorHex()}
+                        readOnly
+                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:border-sky-500"
+                        onClick={(e) => {
+                          e.currentTarget.select();
+                          navigator.clipboard.writeText(getSelectedColorHex());
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">
+                        RGB
+                      </label>
+                      <input
+                        type="text"
+                        value={`rgb(${parseInt(getSelectedColorHex().slice(1, 3), 16)}, ${parseInt(getSelectedColorHex().slice(3, 5), 16)}, ${parseInt(getSelectedColorHex().slice(5, 7), 16)})`}
+                        readOnly
+                        className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-sky-500"
+                        onClick={(e) => {
+                          e.currentTarget.select();
+                          navigator.clipboard.writeText(e.currentTarget.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* HSV Values */}
+              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-4">
+                  Valores HSV
+                </h3>
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">
+                      Matiz (H)
+                    </label>
+                    <div className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-center">
+                      <span className="font-mono text-sm text-sky-400">{hsv.h}°</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">
+                      Saturación (S)
+                    </label>
+                    <div className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-center">
+                      <span className="font-mono text-sm text-sky-400">{hsv.s}%</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">
+                      Valor (V)
+                    </label>
+                    <div className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-center">
+                      <span className="font-mono text-sm text-sky-400">{hsv.v}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center">
-                <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-5 self-start">
-                  Rueda interactiva
-                </h2>
-                <ColorWheel selectedFamily={selectedFamily} onSelectHue={handleSelect} />
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                  Buscar por HEX o nombre
-                </h2>
-                <HexSearch onSelect={handleSelect} />
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                  Acceso rapido
-                </h2>
-                <div className="grid grid-cols-5 gap-2">
-                  {COLOR_FAMILIES.map((family) => (
-                    <button
-                      key={family.id}
-                      onClick={() => handleSelect(family.id)}
-                      title={family.label}
-                      className={`aspect-square rounded-xl transition-all duration-150 shadow-sm hover:scale-110 hover:shadow-md ${
-                        selectedId === family.id ? 'ring-2 ring-offset-2 scale-110 shadow-md' : ''
-                      }`}
-                      style={{
-                        backgroundColor: family.baseHex,
-                        outlineColor: family.baseHex,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              {selectedFamily ? (
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-5">
-                    Detalles del color
-                  </h2>
-                  <ColorDetails family={selectedFamily} />
-                </div>
-              ) : (
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center min-h-[300px] text-center">
-                  <Palette size={40} className="text-gray-200 mb-3" />
-                  <p className="text-gray-400 text-sm">Selecciona un color para ver sus detalles</p>
-                </div>
-              )}
-            </div>
+          {/* Palettes Grid */}
+          <div>
+            <h2 className="text-lg font-bold text-gray-100 mb-4 uppercase tracking-wider">
+              Paletas de {CATEGORIES.find((c) => c.id === selectedCategory)?.label.toLowerCase()}
+            </h2>
+            <PaletteGrid palettes={currentPalettes} />
           </div>
         </div>
       </main>
     </div>
   );
 }
-
