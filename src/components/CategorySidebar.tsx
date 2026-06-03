@@ -1,8 +1,8 @@
-import { CATEGORIES, type PaletteCategory } from '../data/palettes';
+import { PALETTE_CATEGORIES, type ColorCategory } from '../data/palettes';
 
 interface CategorySidebarProps {
-  selectedCategory: PaletteCategory;
-  onSelectCategory: (category: PaletteCategory) => void;
+  selectedCategory: ColorCategory | null;
+  onSelectCategory: (category: ColorCategory | null) => void;
 }
 
 export default function CategorySidebar({ selectedCategory, onSelectCategory }: CategorySidebarProps) {
@@ -13,7 +13,17 @@ export default function CategorySidebar({ selectedCategory, onSelectCategory }: 
       </div>
 
       <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-1">
-        {CATEGORIES.map((cat) => (
+        <button
+          onClick={() => onSelectCategory(null)}
+          className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 ${
+            selectedCategory === null
+              ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
+              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent'
+          }`}
+        >
+          Todos
+        </button>
+        {PALETTE_CATEGORIES.map((cat) => (
           <button
             key={cat.id}
             onClick={() => onSelectCategory(cat.id)}
@@ -29,7 +39,7 @@ export default function CategorySidebar({ selectedCategory, onSelectCategory }: 
       </nav>
 
       <div className="px-4 py-3 border-t border-gray-800">
-        <p className="text-xs text-gray-600 text-center">{CATEGORIES.length} categorías</p>
+        <p className="text-xs text-gray-600 text-center">{PALETTE_CATEGORIES.length + 1} categorías</p>
       </div>
     </aside>
   );
