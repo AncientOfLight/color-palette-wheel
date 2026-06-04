@@ -65,6 +65,10 @@ export default function App() {
     setHue(newHue);
   }, []);
 
+  const handleWheelSaturationChange = useCallback((newSaturation: number) => {
+    setSaturation(newSaturation);
+  }, []);
+
   const handleWheelBrightnessChange = useCallback((newBrightness: number) => {
     setBrightness(newBrightness);
   }, []);
@@ -125,6 +129,7 @@ export default function App() {
                   saturation={saturation}
                   triadMode={triadMode}
                   onHueChange={handleWheelHueChange}
+                  onSaturationChange={handleWheelSaturationChange}
                   onBrightnessChange={handleWheelBrightnessChange}
                 />
 
@@ -189,7 +194,7 @@ export default function App() {
                               max="255"
                               value={currentRgb.r}
                               onChange={(e) => handleRgbInput('r', e.target.value)}
-                              className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                              className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                             />
                           </div>
                         </div>
@@ -202,7 +207,7 @@ export default function App() {
                               max="255"
                               value={currentRgb.g}
                               onChange={(e) => handleRgbInput('g', e.target.value)}
-                              className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                              className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                             />
                           </div>
                         </div>
@@ -215,7 +220,7 @@ export default function App() {
                               max="255"
                               value={currentRgb.b}
                               onChange={(e) => handleRgbInput('b', e.target.value)}
-                              className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                              className="w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                             />
                           </div>
                         </div>
@@ -245,7 +250,7 @@ export default function App() {
                         max="360"
                         value={hue}
                         onChange={(e) => handleHsvInput('h', e.target.value)}
-                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center"
+                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       />
                       <span className="text-xs text-gray-500">°</span>
                     </div>
@@ -261,7 +266,7 @@ export default function App() {
                         max="100"
                         value={saturation}
                         onChange={(e) => handleHsvInput('s', e.target.value)}
-                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center"
+                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       />
                       <span className="text-xs text-gray-500">%</span>
                     </div>
@@ -277,7 +282,7 @@ export default function App() {
                         max="100"
                         value={brightness}
                         onChange={(e) => handleHsvInput('v', e.target.value)}
-                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center"
+                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       />
                       <span className="text-xs text-gray-500">%</span>
                     </div>

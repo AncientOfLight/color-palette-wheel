@@ -81,6 +81,66 @@ export function isLightColor(hex: string): boolean {
   return (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255 > 0.5;
 }
 
+export function getColorName(hex: string): string {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return 'Unknown';
+  const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+  const h = hsv.h, s = hsv.s, v = hsv.v;
+
+  // Very dark
+  if (v < 10) return 'Black';
+  // Very light
+  if (v > 95 && s < 10) return 'White';
+  // Grays
+  if (s < 8) {
+    if (v < 20) return 'Black';
+    if (v < 40) return 'Charcoal';
+    if (v < 55) return 'Dark Gray';
+    if (v < 70) return 'Gray';
+    if (v < 85) return 'Silver';
+    return 'Light Gray';
+  }
+
+  // Pastels (low saturation, high value)
+  if (s < 30 && v > 70) {
+    if (h < 15 || h >= 345) return 'Blush';
+    if (h < 45) return 'Peach';
+    if (h < 70) return 'Cream';
+    if (h < 150) return 'Mint';
+    if (h < 210) return 'Powder Blue';
+    if (h < 270) return 'Lavender';
+    if (h < 315) return 'Orchid';
+    return 'Rose';
+  }
+
+  // Browns (medium-low value, orange-ish hue, moderate saturation)
+  if (v < 55 && s > 15 && s < 70 && h >= 10 && h < 50) {
+    if (v < 25) return 'Dark Brown';
+    if (v < 35) return 'Brown';
+    return 'Tan';
+  }
+
+  // Saturated colors
+  const hueNames: [number, number, string][] = [
+    [0, 15, 'Red'], [15, 45, 'Orange'], [45, 70, 'Amber'],
+    [70, 85, 'Yellow'], [85, 150, 'Green'], [150, 185, 'Teal'],
+    [185, 210, 'Cyan'], [210, 260, 'Blue'], [260, 290, 'Indigo'],
+    [290, 330, 'Purple'], [330, 345, 'Magenta'], [345, 360, 'Red'],
+  ];
+
+  let hueName = 'Red';
+  for (const [lo, hi, name] of hueNames) {
+    if (h >= lo && h < hi) { hueName = name; break; }
+  }
+
+  // Modifiers
+  if (v < 30) return `Dark ${hueName}`;
+  if (v < 50) return `Deep ${hueName}`;
+  if (s < 40) return `Muted ${hueName}`;
+  if (s > 85 && v > 80) return `Vivid ${hueName}`;
+  return hueName;
+}
+
 export function getTriadicColors(hue: number): number[] {
   return [(hue + 120) % 360, (hue + 240) % 360];
 }

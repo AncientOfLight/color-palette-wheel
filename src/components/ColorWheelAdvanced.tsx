@@ -6,6 +6,7 @@ interface ColorWheelAdvancedProps {
   saturation: number;
   triadMode: boolean;
   onHueChange: (hue: number) => void;
+  onSaturationChange: (saturation: number) => void;
   onBrightnessChange: (brightness: number) => void;
 }
 
@@ -15,6 +16,7 @@ export default function ColorWheelAdvanced({
   saturation,
   triadMode,
   onHueChange,
+  onSaturationChange,
   onBrightnessChange,
 }: ColorWheelAdvancedProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -33,7 +35,7 @@ export default function ColorWheelAdvanced({
 
     ctx.clearRect(0, 0, size, size);
 
-    // Draw conical gradient color wheel
+    // Draw HSV color wheel: angle = hue, distance from center = saturation
     const imageData = ctx.createImageData(size, size);
     const data = imageData.data;
 
@@ -52,18 +54,23 @@ export default function ColorWheelAdvanced({
 
         const sat = Math.min((dist / radius) * 100, 100);
 
-        const hslToRgb = (h: number, s: number, l: number) => {
-          s /= 100; l /= 100;
-          const a = s * Math.min(l, 1 - l);
-          const f = (n: number) => {
-            const k = (n + h / 30) % 12;
-            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-            return Math.round(255 * color);
-          };
-          return [f(0), f(8), f(4)];
+        // HSV to RGB: full brightness at the wheel
+        const hsvToRgbPixel = (h: number, s: number, v: number) => {
+          s /= 100; v /= 100;
+          const c = v * s;
+          const xVal = c * (1 - Math.abs(((h / 60) % 2) - 1));
+          const m = v - c;
+          let r = 0, g = 0, b = 0;
+          if (h < 60) { r = c; g = xVal; }
+          else if (h < 120) { r = xVal; g = c; }
+          else if (h < 180) { g = c; b = xVal; }
+          else if (h < 240) { g = xVal; b = c; }
+          else if (h < 300) { r = xVal; b = c; }
+          else { r = c; b = xVal; }
+          return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
         };
 
-        const [r, g, b] = hslToRgb(angle, sat, 50);
+        const [r, g, b] = hsvToRgbPixel(angle, sat, brightness);
         data[i] = r;
         data[i + 1] = g;
         data[i + 2] = b;
@@ -82,16 +89,54 @@ export default function ColorWheelAdvanced({
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // Draw triad connecting lines first (behind markers)
+    // Calculate marker position: angle = hue, distance = saturation
+    const markerDist = (saturation / 100) * radius;
+
+    const drawMarker = (markerHue: number, isPrimary: boolean) => {
+      const angleRad = (markerHue / 360) * Math.PI * 2 - Math.PI / 2;
+      const px = centerX + Math.cos(angleRad) * markerDist;
+      const py = centerY + Math.sin(angleRad) * markerDist;
+      const markerSize = isPrimary ? 8 : 7;
+
+      // Outer glow for primary
+      if (isPrimary) {
+        ctx.beginPath();
+        ctx.arc(px, py, markerSize + 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.fill();
+      }
+
+      // White border
+      ctx.beginPath();
+      ctx.arc(px, py, markerSize, 0, Math.PI * 2);
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = isPrimary ? 3 : 2;
+      ctx.stroke();
+
+      // Hue-colored inner border
+      ctx.beginPath();
+      ctx.arc(px, py, markerSize, 0, Math.PI * 2);
+      ctx.strokeStyle = `hsl(${markerHue}, 100%, 50%)`;
+      ctx.lineWidth = isPrimary ? 1.5 : 1;
+      ctx.stroke();
+
+      // Inner dot for secondary markers
+      if (!isPrimary) {
+        ctx.beginPath();
+        ctx.arc(px, py, 3, 0, Math.PI * 2);
+        ctx.fillStyle = `hsl(${markerHue}, 100%, 70%)`;
+        ctx.fill();
+      }
+    };
+
+    // Draw triad connecting lines behind markers
     if (triadMode) {
       const triadHues = [hue, (hue + 120) % 360, (hue + 240) % 360];
-      const pointerDist = (radius * (brightness / 100)) * 0.8 + radius * 0.1;
-
       const points = triadHues.map(h => {
         const a = (h / 360) * Math.PI * 2 - Math.PI / 2;
         return {
-          x: centerX + Math.cos(a) * pointerDist,
-          y: centerY + Math.sin(a) * pointerDist,
+          x: centerX + Math.cos(a) * markerDist,
+          y: centerY + Math.sin(a) * markerDist,
         };
       });
 
@@ -110,46 +155,7 @@ export default function ColorWheelAdvanced({
       ctx.fill();
     }
 
-    // Draw marker(s)
-    const drawMarker = (markerHue: number, isPrimary: boolean) => {
-      const angle = (markerHue / 360) * Math.PI * 2 - Math.PI / 2;
-      const pointerRadius = (radius * (brightness / 100)) * 0.8 + radius * 0.1;
-      const px = centerX + Math.cos(angle) * pointerRadius;
-      const py = centerY + Math.sin(angle) * pointerRadius;
-
-      const markerSize = isPrimary ? 8 : 7;
-
-      // Outer glow for primary
-      if (isPrimary) {
-        ctx.beginPath();
-        ctx.arc(px, py, markerSize + 4, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-        ctx.fill();
-      }
-
-      // White border
-      ctx.beginPath();
-      ctx.arc(px, py, markerSize, 0, Math.PI * 2);
-      ctx.strokeStyle = 'white';
-      ctx.lineWidth = isPrimary ? 3 : 2;
-      ctx.stroke();
-
-      // Hue-colored inner
-      ctx.beginPath();
-      ctx.arc(px, py, markerSize, 0, Math.PI * 2);
-      ctx.strokeStyle = `hsl(${markerHue}, 100%, 50%)`;
-      ctx.lineWidth = isPrimary ? 1.5 : 1;
-      ctx.stroke();
-
-      // Inner dot for secondary
-      if (!isPrimary) {
-        ctx.beginPath();
-        ctx.arc(px, py, 3, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${markerHue}, 100%, 70%)`;
-        ctx.fill();
-      }
-    };
-
+    // Draw markers
     if (triadMode) {
       drawMarker((hue + 240) % 360, false);
       drawMarker((hue + 120) % 360, false);
@@ -157,7 +163,7 @@ export default function ColorWheelAdvanced({
     } else {
       drawMarker(hue, true);
     }
-  }, [hue, brightness, triadMode]);
+  }, [hue, brightness, saturation, triadMode]);
 
   const handleCanvasInteraction = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -168,9 +174,19 @@ export default function ColorWheelAdvanced({
     const x = (e.clientX - rect.left) * scaleX - size / 2;
     const y = (e.clientY - rect.top) * scaleY - size / 2;
 
+    const radius = size / 2 - 8;
+    const dist = Math.sqrt(x * x + y * y);
+
+    // Calculate hue from angle
     let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
     if (angle < 0) angle += 360;
-    onHueChange(Math.round(angle) % 360);
+    const newHue = Math.round(angle) % 360;
+
+    // Calculate saturation from distance (center = 0%, edge = 100%)
+    const newSat = Math.round(Math.min((dist / radius) * 100, 100));
+
+    onHueChange(newHue);
+    onSaturationChange(newSat);
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -196,17 +212,21 @@ export default function ColorWheelAdvanced({
   }, [isDragging]);
 
   const getSelectedColor = () => {
-    const hslToRgb = (h: number, s: number, l: number) => {
-      s /= 100; l /= 100;
-      const a = s * Math.min(l, 1 - l);
-      const f = (n: number) => {
-        const k = (n + h / 30) % 12;
-        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-        return Math.round(255 * color);
-      };
-      return [f(0), f(8), f(4)];
+    const hsvToRgbLocal = (h: number, s: number, v: number) => {
+      s /= 100; v /= 100;
+      const c = v * s;
+      const xVal = c * (1 - Math.abs(((h / 60) % 2) - 1));
+      const m = v - c;
+      let r = 0, g = 0, b = 0;
+      if (h < 60) { r = c; g = xVal; }
+      else if (h < 120) { r = xVal; g = c; }
+      else if (h < 180) { g = c; b = xVal; }
+      else if (h < 240) { g = xVal; b = c; }
+      else if (h < 300) { r = xVal; b = c; }
+      else { r = c; b = xVal; }
+      return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
     };
-    const [r, g, b] = hslToRgb(hue, saturation, 50 + (brightness - 50) * 0.5);
+    const [r, g, b] = hsvToRgbLocal(hue, saturation, brightness);
     return `rgb(${r}, ${g}, ${b})`;
   };
 

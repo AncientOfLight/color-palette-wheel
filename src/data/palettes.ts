@@ -25,518 +25,223 @@ export const PALETTE_CATEGORIES: { id: ColorCategory; label: string }[] = [
   { id: 'neon', label: 'Neon' },
 ];
 
-export const PALETTES: Palette[] = [
-  // Pastel (38 palettes)
-  { id: 'pas1', name: 'Soft Bloom', colors: ['#FFB3D9', '#FFD4B3', '#E0D4FF', '#C0E5FF', '#D4FFC0'], categories: ['pastel', 'pink'], tags: ['soft', 'dreamy', 'light'] },
-  { id: 'pas2', name: 'Cotton Candy', colors: ['#FFB3E6', '#FFD4C0', '#E6F3FF', '#D4FFE6', '#F3E6FF'], categories: ['pastel', 'pink'], tags: ['sweet', 'gentle'] },
-  { id: 'pas3', name: 'Milky Way', colors: ['#E5D4FF', '#D4E5FF', '#D4FFF5', '#FFE5D4', '#FFF5D4'], categories: ['pastel'], tags: ['ethereal', 'soft'] },
-  { id: 'pas4', name: 'Cloud Nine', colors: ['#FFE5EC', '#E5F5FF', '#F0E5FF', '#E5FFF5', '#FFF5E5'], categories: ['pastel', 'white'], tags: ['light', 'airy'] },
-  { id: 'pas5', name: 'Candy Dreams', colors: ['#FFB3D9', '#FFADAD', '#FFD4A3', '#FDFFB6', '#B3E5FC'], categories: ['pastel', 'pink', 'yellow'], tags: ['playful', 'sweet'] },
-  { id: 'pas6', name: 'Lavender Field', colors: ['#D4B3FF', '#C0B3FF', '#D4C0FF', '#E0D4FF', '#F0E5FF'], categories: ['pastel', 'purple'], tags: ['relaxing', 'floral'] },
-  { id: 'pas7', name: 'Peachy Keen', colors: ['#FFD4A3', '#FFC0A3', '#FFB8A3', '#FFC9A3', '#FFDC99'], categories: ['pastel', 'orange'], tags: ['warm', 'inviting'] },
-  { id: 'pas8', name: 'Mint Fresh', colors: ['#B3FFDB', '#A3FFE0', '#C0FFE8', '#D4FFF5', '#E0FFFC'], categories: ['pastel', 'green'], tags: ['fresh', 'cool'] },
-  { id: 'pas9', name: 'Rose Quartz', colors: ['#FFCCDD', '#FFD9E8', '#FFE6F0', '#FFD0D9', '#FFC9D9'], categories: ['pastel', 'pink'], tags: ['romantic', 'soft'] },
-  { id: 'pas10', name: 'Sky Bliss', colors: ['#B3D9FF', '#C0E5FF', '#D4E8FF', '#E0F0FF', '#E8F5FF'], categories: ['pastel', 'blue', 'white'], tags: ['peaceful', 'calm'] },
-  { id: 'pas11', name: 'Pistachio Dream', colors: ['#D4FFB3', '#E0FFC0', '#E8FFC9', '#F0FFD4', '#F8FFE0'], categories: ['pastel', 'green'], tags: ['natural', 'light'] },
-  { id: 'pas12', name: 'Peach Blossom', colors: ['#FFCCB3', '#FFD4B3', '#FFDCC0', '#FFE0C9', '#FFE8D4'], categories: ['pastel', 'orange'], tags: ['natural', 'warm'] },
-  { id: 'pas13', name: 'Bluebell', colors: ['#CCE5FF', '#D4E8FF', '#DCEAFF', '#E4F0FF', '#ECFAFF'], categories: ['pastel', 'blue'], tags: ['cool', 'serene'] },
-  { id: 'pas14', name: 'Sugarcane', colors: ['#FFE8C0', '#FFF0D4', '#FFF4D9', '#FFF9E0', '#FFFCE8'], categories: ['pastel', 'yellow'], tags: ['sweet', 'light'] },
-  { id: 'pas15', name: 'Orchid Whisper', colors: ['#E8D4FF', '#EDD9FF', '#F0E0FF', '#F4E8FF', '#F8F0FF'], categories: ['pastel', 'purple'], tags: ['delicate', 'mystical'] },
-  { id: 'pas16', name: 'Sea Foam', colors: ['#B3E0E8', '#C0E8F0', '#CFF0F8', '#D4F4FF', '#DCFAFF'], categories: ['pastel', 'blue', 'green'], tags: ['refreshing', 'tropical'] },
-  { id: 'pas17', name: 'Strawberry Cream', colors: ['#FFD4D9', '#FFE0E0', '#FFEBEB', '#FFF0F0', '#FFF8F8'], categories: ['pastel', 'pink'], tags: ['fruity', 'creamy'] },
-  { id: 'pas18', name: 'Lemon Meringue', colors: ['#FFFACC', '#FFFDD4', '#FFFFE0', '#FFFFF0', '#FFFFF8'], categories: ['pastel', 'yellow'], tags: ['soft', 'sweet'] },
-  { id: 'pas19', name: 'Garden Mint', colors: ['#C0FFD4', '#D4FFE0', '#E0FFF0', '#ECFFF8', '#F4FFFC'], categories: ['pastel', 'green'], tags: ['fresh', 'natural'] },
-  { id: 'pas20', name: 'Twilight', colors: ['#E0D4FF', '#ECDDFF', '#F0E0FF', '#F4E8FF', '#F8F0FF'], categories: ['pastel', 'purple', 'blue'], tags: ['magical', 'dreamy'] },
-  { id: 'pas21', name: 'Sunset Whisper', colors: ['#FFD4A3', '#FFE0B3', '#FFECC0', '#FFF4D4', '#FFFDE0'], categories: ['pastel', 'orange'], tags: ['warm', 'glowing'] },
-  { id: 'pas22', name: 'Frosty Mornings', colors: ['#E8F4FF', '#F0F8FF', '#F4FAFF', '#F8FCFF', '#FCFEFF'], categories: ['pastel', 'blue', 'white'], tags: ['cool', 'crisp'] },
-  { id: 'pas23', name: 'Cherry Blossom', colors: ['#FFD9E8', '#FFE0ED', '#FFE8F0', '#FFF0F4', '#FFF8F8'], categories: ['pastel', 'pink'], tags: ['romantic', 'nature'] },
-  { id: 'pas24', name: 'Honeydew', colors: ['#D4F0B3', '#E0F0C0', '#ECF0D4', '#F0F8E0', '#F8FFEC'], categories: ['pastel', 'green', 'yellow'], tags: ['sweet', 'natural'] },
-  { id: 'pas25', name: 'Lavender Lace', colors: ['#E8D9FF', '#F0E8FF', '#F4ECFF', '#F8F0FF', '#FCFAFF'], categories: ['pastel', 'purple'], tags: ['delicate', 'elegant'] },
-  { id: 'pas26', name: 'Peachy Pink', colors: ['#FFD4CC', '#FFE0D4', '#FFEAE0', '#FFF0EC', '#FFF8F4'], categories: ['pastel', 'pink', 'orange'], tags: ['warm', 'soft'] },
-  { id: 'pas27', name: 'Minty Breeze', colors: ['#B3F0E8', '#C0F0F0', '#D4F8F8', '#E0FFFC', '#ECFFFF'], categories: ['pastel', 'green', 'blue'], tags: ['fresh', 'airy'] },
-  { id: 'pas28', name: 'Cloud Cotton', colors: ['#FFE8F0', '#FFF0F4', '#FFF8F8', '#FFFCFC', '#FFFFFF'], categories: ['pastel', 'white'], tags: ['pure', 'soft'] },
-  { id: 'pas29', name: 'Butterfly Wings', colors: ['#FFE8D4', '#FFEDE0', '#FFF0E8', '#FFF4EC', '#FFFAF4'], categories: ['pastel', 'orange', 'yellow'], tags: ['delicate', 'nature'] },
-  { id: 'pas30', name: 'Dreamy Clouds', colors: ['#E8E8FF', '#F0F0FF', '#F4F8FF', '#F8FCFF', '#FCFEFF'], categories: ['pastel', 'blue'], tags: ['ethereal', 'soft'] },
-  { id: 'pas31', name: 'Bubblegum Sweet', colors: ['#FFB3D4', '#FFC0DB', '#FFCCE0', '#FFD9E8', '#FFE8F0'], categories: ['pastel', 'pink'], tags: ['playful', 'fun'] },
-  { id: 'pas32', name: 'Sunshine Yellow', colors: ['#FFFAA3', '#FFFBB3', '#FFFCC0', '#FFFDD4', '#FFFEE0'], categories: ['pastel', 'yellow'], tags: ['bright', 'happy'] },
-  { id: 'pas33', name: 'Forest Whisper', colors: ['#B3D4A3', '#C0E0B3', '#D4E8C0', '#E0F0D4', '#ECFAE0'], categories: ['pastel', 'green'], tags: ['natural', 'calm'] },
-  { id: 'pas34', name: 'Ocean Dreams', colors: ['#A3D9FF', '#B3E5FF', '#C0E8FF', '#D4F0FF', '#E0F8FF'], categories: ['pastel', 'blue'], tags: ['serene', 'peaceful'] },
-  { id: 'pas35', name: 'Rose Garden', colors: ['#FFD4E0', '#FFE0E8', '#FFEBF0', '#FFF0F4', '#FFF8FB'], categories: ['pastel', 'pink'], tags: ['romantic', 'pretty'] },
-  { id: 'pas36', name: 'Grape Ice', colors: ['#D4B3FF', '#DCC0FF', '#E8D4FF', '#F0E0FF', '#F8ECFF'], categories: ['pastel', 'purple'], tags: ['cool', 'sweet'] },
-  { id: 'pas37', name: 'Coral Cream', colors: ['#FFCCB3', '#FFD9C0', '#FFE0CC', '#FFEBDB', '#FFF0E8'], categories: ['pastel', 'orange'], tags: ['warm', 'creamy'] },
-  { id: 'pas38', name: 'Morning Dew', colors: ['#D4FFD4', '#E0FFE0', '#ECFFEC', '#F4FFF4', '#FCFFFC'], categories: ['pastel', 'green', 'white'], tags: ['fresh', 'clean'] },
+// --- Programmatic palette generator for 500 per category ---
 
-  // Red (38 palettes)
-  { id: 'red1', name: 'Crimson Heart', colors: ['#DC143C', '#E63946', '#FF1744', '#C41E3A', '#8B0000'], categories: ['red'], tags: ['bold', 'vibrant', 'passionate'] },
-  { id: 'red2', name: 'Ruby Red', colors: ['#E63946', '#E76F51', '#EA5455', '#E84C3D', '#D62828'], categories: ['red', 'orange'], tags: ['rich', 'deep'] },
-  { id: 'red3', name: 'Sunset Blaze', colors: ['#FF6B35', '#FF5733', '#FF4500', '#FF6347', '#FF7F50'], categories: ['red', 'orange'], tags: ['warm', 'energetic'] },
-  { id: 'red4', name: 'Berry Blast', colors: ['#C41E3A', '#E63946', '#FF6B9D', '#C81D25', '#B91C3E'], categories: ['red', 'pink'], tags: ['fruity', 'vibrant'] },
-  { id: 'red5', name: 'Fire Truck', colors: ['#FF0000', '#FF1744', '#E63946', '#DD0031', '#CC0000'], categories: ['red'], tags: ['bright', 'alert'] },
-  { id: 'red6', name: 'Pomegranate', colors: ['#9B0000', '#C41E3A', '#E63946', '#FF1744', '#FF6B9D'], categories: ['red', 'pink'], tags: ['dark', 'rich'] },
-  { id: 'red7', name: 'Rose Petal', colors: ['#E74C3C', '#EC7063', '#F5B7B1', '#FADBD8', '#FBDEDB'], categories: ['red', 'pink'], tags: ['romantic', 'soft'] },
-  { id: 'red8', name: 'Spicy Red', colors: ['#D32F2F', '#E53935', '#EF5350', '#F44336', '#E57373'], categories: ['red'], tags: ['bold', 'modern'] },
-  { id: 'red9', name: 'Blood Orange', colors: ['#CC2200', '#DD3311', '#EE4422', '#FF5533', '#FF7755'], categories: ['red', 'orange'], tags: ['intense', 'warm'] },
-  { id: 'red10', name: 'Scarlet Dream', colors: ['#FF0000', '#FF1111', '#FF3333', '#FF5555', '#FF7777'], categories: ['red'], tags: ['vivid', 'dramatic'] },
-  { id: 'red11', name: 'Burgundy Nights', colors: ['#660000', '#880000', '#AA0000', '#CC0000', '#EE0000'], categories: ['red'], tags: ['deep', 'sophisticated'] },
-  { id: 'red12', name: 'Coral Sunrise', colors: ['#FF6666', '#FF7777', '#FF8888', '#FF9999', '#FFAAAA'], categories: ['red', 'orange'], tags: ['warm', 'soft'] },
-  { id: 'red13', name: 'Cherry Red', colors: ['#AA0000', '#CC0000', '#EE0000', '#FF1111', '#FF3333'], categories: ['red'], tags: ['bright', 'classic'] },
-  { id: 'red14', name: 'Tomato Splash', colors: ['#FF5533', '#FF6644', '#FF7755', '#FF8866', '#FF9977'], categories: ['red', 'orange'], tags: ['vibrant', 'fresh'] },
-  { id: 'red15', name: 'Brick Wall', colors: ['#663333', '#884444', '#AA5555', '#CC6666', '#EE7777'], categories: ['red', 'brown'], tags: ['warm', 'earthy'] },
-  { id: 'red16', name: 'Lipstick Red', colors: ['#CC0000', '#DD0000', '#EE0000', '#FF0000', '#FF1111'], categories: ['red'], tags: ['bold', 'glamorous'] },
-  { id: 'red17', name: 'Valentine', colors: ['#FF0033', '#FF0044', '#FF0055', '#FF0066', '#FF0077'], categories: ['red', 'pink'], tags: ['romantic', 'love'] },
-  { id: 'red18', name: 'Mahogany', colors: ['#550000', '#770000', '#990000', '#BB0000', '#DD0000'], categories: ['red', 'brown'], tags: ['deep', 'warm'] },
-  { id: 'red19', name: 'Flame Gradient', colors: ['#FF0000', '#FF3300', '#FF6600', '#FF9900', '#FFCC00'], categories: ['red', 'orange'], tags: ['gradient', 'warm'] },
-  { id: 'red20', name: 'Poppy Field', colors: ['#DD0000', '#EE0000', '#FF1111', '#FF3333', '#FF5555'], categories: ['red'], tags: ['vibrant', 'natural'] },
-  { id: 'red21', name: 'Crimson Velvet', colors: ['#440000', '#660000', '#880000', '#AA0000', '#CC0000'], categories: ['red'], tags: ['luxurious', 'deep'] },
-  { id: 'red22', name: 'Sunset Red', colors: ['#CC3300', '#DD4400', '#EE5500', '#FF6600', '#FF7700'], categories: ['red', 'orange'], tags: ['warm', 'glowing'] },
-  { id: 'red23', name: 'Strawberry Jam', colors: ['#BB1111', '#DD1111', '#FF1111', '#FF3333', '#FF5555'], categories: ['red', 'pink'], tags: ['fruity', 'sweet'] },
-  { id: 'red24', name: 'Stop Sign', colors: ['#990000', '#BB0000', '#DD0000', '#FF0000', '#FF1111'], categories: ['red'], tags: ['bold', 'alert'] },
-  { id: 'red25', name: 'Red Silk', colors: ['#880000', '#AA0000', '#CC0000', '#EE0000', '#FF1111'], categories: ['red'], tags: ['elegant', 'rich'] },
-  { id: 'red26', name: 'Chili Pepper', colors: ['#770000', '#991111', '#BB2222', '#DD3333', '#FF4444'], categories: ['red'], tags: ['spicy', 'intense'] },
-  { id: 'red27', name: 'Love Red', colors: ['#FF0000', '#FF0011', '#FF0022', '#FF0033', '#FF0044'], categories: ['red', 'pink'], tags: ['passionate', 'warm'] },
-  { id: 'red28', name: 'Apple Pie', colors: ['#CC2200', '#EE3300', '#FF4400', '#FF5500', '#FF6600'], categories: ['red', 'orange'], tags: ['warm', 'sweet'] },
-  { id: 'red29', name: 'Red Velvet', colors: ['#550000', '#770000', '#990000', '#BB0000', '#DD0000'], categories: ['red'], tags: ['luxurious', 'elegant'] },
-  { id: 'red30', name: 'Passion Red', colors: ['#DD0000', '#EE0000', '#FF0000', '#FF1111', '#FF2222'], categories: ['red'], tags: ['intense', 'bold'] },
-  { id: 'red31', name: 'Red Wine', colors: ['#440000', '#660000', '#880000', '#AA0000', '#CC0000'], categories: ['red'], tags: ['sophisticated', 'warm'] },
-  { id: 'red32', name: 'Fire Engine', colors: ['#FF0000', '#FF1111', '#FF2222', '#FF3333', '#FF4444'], categories: ['red'], tags: ['bright', 'bold'] },
-  { id: 'red33', name: 'Rose Bud', colors: ['#BB0033', '#DD0033', '#FF0033', '#FF1144', '#FF2255'], categories: ['red', 'pink'], tags: ['romantic', 'floral'] },
-  { id: 'red34', name: 'Brick Red', colors: ['#663333', '#884444', '#AA5555', '#CC6666', '#EE7777'], categories: ['red', 'brown'], tags: ['warm', 'solid'] },
-  { id: 'red35', name: 'Red Hot', colors: ['#CC0000', '#DD0000', '#EE0000', '#FF0000', '#FF0011'], categories: ['red'], tags: ['vibrant', 'intense'] },
-  { id: 'red36', name: 'Ruby Wine', colors: ['#550000', '#771111', '#992222', '#BB3333', '#DD4444'], categories: ['red'], tags: ['rich', 'sophisticated'] },
-  { id: 'red37', name: 'Scarlet Fever', colors: ['#DD0000', '#EE1111', '#FF2222', '#FF3333', '#FF4444'], categories: ['red'], tags: ['bright', 'energetic'] },
-  { id: 'red38', name: 'Red Dawn', colors: ['#550000', '#880000', '#BB0000', '#EE0000', '#FF3333'], categories: ['red'], tags: ['warm', 'powerful'] },
+function hsvToHex(h: number, s: number, v: number): string {
+  h = ((h % 360) + 360) % 360;
+  s = Math.max(0, Math.min(100, s)) / 100;
+  v = Math.max(0, Math.min(100, v)) / 100;
+  const c = v * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = v - c;
+  let r = 0, g = 0, b = 0;
+  if (h < 60) { r = c; g = x; }
+  else if (h < 120) { r = x; g = c; }
+  else if (h < 180) { g = c; b = x; }
+  else if (h < 240) { g = x; b = c; }
+  else if (h < 300) { r = x; b = c; }
+  else { r = c; b = x; }
+  const toHex = (n: number) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
 
-  // Blue (38 palettes)
-  { id: 'blu1', name: 'Ocean Wave', colors: ['#0099FF', '#0080FF', '#0066CC', '#005A99', '#003D66'], categories: ['blue'], tags: ['deep', 'calming'] },
-  { id: 'blu2', name: 'Sky Blue', colors: ['#87CEEB', '#00BFFF', '#1E90FF', '#4169E1', '#0099FF'], categories: ['blue', 'white'], tags: ['light', 'airy'] },
-  { id: 'blu3', name: 'Midnight', colors: ['#000080', '#003D7A', '#0047AB', '#0066CC', '#1E90FF'], categories: ['blue', 'black'], tags: ['dark', 'professional'] },
-  { id: 'blu4', name: 'Navy Breeze', colors: ['#1A237E', '#283593', '#3F51B5', '#5C6BC0', '#7986CB'], categories: ['blue'], tags: ['sophisticated', 'calm'] },
-  { id: 'blu5', name: 'Cyber Blue', colors: ['#00B4D8', '#0096C7', '#0077B6', '#0066B2', '#00539B'], categories: ['blue'], tags: ['modern', 'tech'] },
-  { id: 'blu6', name: 'Royal Blue', colors: ['#4169E1', '#6495ED', '#8DB3FF', '#ADD8E6', '#B0E0E6'], categories: ['blue', 'purple'], tags: ['regal', 'majestic'] },
-  { id: 'blu7', name: 'Glacier Lake', colors: ['#B0E0E6', '#00CED1', '#20B2AA', '#48D1CC', '#7FFFD4'], categories: ['blue', 'green'], tags: ['cool', 'refreshing'] },
-  { id: 'blu8', name: 'Electric Blue', colors: ['#0099FF', '#00B4D8', '#00D4FF', '#00E5FF', '#00F5FF'], categories: ['blue'], tags: ['bright', 'energetic'] },
-  { id: 'blu9', name: 'Cobalt Dream', colors: ['#003DA5', '#0052CC', '#0066FF', '#3366FF', '#6699FF'], categories: ['blue', 'purple'], tags: ['dreamy', 'vibrant'] },
-  { id: 'blu10', name: 'Teal Waters', colors: ['#008B8B', '#00A9A9', '#20B2AA', '#48D1CC', '#7FFFD4'], categories: ['blue', 'green'], tags: ['ocean', 'tropical'] },
-  { id: 'blu11', name: 'Sapphire', colors: ['#0033CC', '#0052FF', '#0066FF', '#0077FF', '#0088FF'], categories: ['blue'], tags: ['precious', 'deep'] },
-  { id: 'blu12', name: 'Water Lily', colors: ['#4DB8FF', '#66CCFF', '#80D4FF', '#99DDFF', '#B3E5FF'], categories: ['blue'], tags: ['soft', 'gentle'] },
-  { id: 'blu13', name: 'Deep Sea', colors: ['#001A4D', '#003366', '#004D99', '#0066CC', '#0080FF'], categories: ['blue'], tags: ['dark', 'mysterious'] },
-  { id: 'blu14', name: 'Steel Blue', colors: ['#4682B4', '#5A90C8', '#7CB3D6', '#9ECCE8', '#C5E0F5'], categories: ['blue', 'grey'], tags: ['strong', 'cool'] },
-  { id: 'blu15', name: 'Periwinkle', colors: ['#CCCCFF', '#DDDDFF', '#D9D9FF', '#E0E0FF', '#EBEBFF'], categories: ['blue', 'purple'], tags: ['soft', 'dreamy'] },
-  { id: 'blu16', name: 'Cornflower', colors: ['#6495ED', '#7BA8F0', '#8BBAF3', '#9BCDF5', '#ABDFF8'], categories: ['blue'], tags: ['natural', 'soft'] },
-  { id: 'blu17', name: 'Azure Sky', colors: ['#007FFF', '#3399FF', '#66BBFF', '#99DDFF', '#CCEEEE'], categories: ['blue'], tags: ['bright', 'airy'] },
-  { id: 'blu18', name: 'Indigo Nights', colors: ['#1A0033', '#330066', '#4D0099', '#6600CC', '#7F00FF'], categories: ['blue', 'purple'], tags: ['mysterious', 'deep'] },
-  { id: 'blu19', name: 'Captain Blue', colors: ['#003D99', '#0052CC', '#0066FF', '#3385FF', '#66A3FF'], categories: ['blue'], tags: ['bold', 'classic'] },
-  { id: 'blu20', name: 'Iceberg', colors: ['#CCDDFF', '#D9E6FF', '#E0F0FF', '#E6F5FF', '#EEFAFF'], categories: ['blue', 'white'], tags: ['cool', 'clean'] },
-  { id: 'blu21', name: 'Blue Moon', colors: ['#0033FF', '#1144FF', '#2255FF', '#3366FF', '#4477FF'], categories: ['blue'], tags: ['mystical', 'calm'] },
-  { id: 'blu22', name: 'Denim', colors: ['#1A3A52', '#2E5E7E', '#4182AA', '#5FA6D6', '#7FCCFF'], categories: ['blue'], tags: ['classic', 'cool'] },
-  { id: 'blu23', name: 'Ocean Cove', colors: ['#004D80', '#0066B2', '#007FE5', '#3399FF', '#66BBFF'], categories: ['blue'], tags: ['deep', 'peaceful'] },
-  { id: 'blu24', name: 'Bluebell Forest', colors: ['#6666FF', '#7777FF', '#8888FF', '#9999FF', '#AAAAFF'], categories: ['blue', 'purple'], tags: ['natural', 'soft'] },
-  { id: 'blu25', name: 'Slate Blue', colors: ['#6A5ACD', '#7B68EE', '#8B7FE0', '#9B9EF2', '#ABABFF'], categories: ['blue', 'purple'], tags: ['elegant', 'cool'] },
-  { id: 'blu26', name: 'True Blue', colors: ['#0000FF', '#1111FF', '#2222FF', '#3333FF', '#4444FF'], categories: ['blue'], tags: ['pure', 'bold'] },
-  { id: 'blu27', name: 'Sky Dream', colors: ['#99CCFF', '#AADDFF', '#BBDDFF', '#CCEEEE', '#DDFFFF'], categories: ['blue', 'white'], tags: ['light', 'airy'] },
-  { id: 'blu28', name: 'Navy Nights', colors: ['#001F3F', '#003A6F', '#0052A3', '#0066CC', '#0077FF'], categories: ['blue'], tags: ['deep', 'professional'] },
-  { id: 'blu29', name: 'Baby Blue', colors: ['#B3E5FC', '#80D4FF', '#4DB8FF', '#1AA3FF', '#0099FF'], categories: ['blue'], tags: ['soft', 'gentle'] },
-  { id: 'blu30', name: 'Prussian Blue', colors: ['#003366', '#004D80', '#0066B2', '#0080E0', '#00A3FF'], categories: ['blue'], tags: ['deep', 'classic'] },
-  { id: 'blu31', name: 'Blue Lagoon', colors: ['#006677', '#007D8C', '#0094A1', '#00ABBE', '#1CCDD8'], categories: ['blue', 'green'], tags: ['tropical', 'fresh'] },
-  { id: 'blu32', name: 'Cerulean', colors: ['#007BA7', '#0099CC', '#00B3E5', '#1AC5F0', '#4DD9FF'], categories: ['blue'], tags: ['bright', 'vibrant'] },
-  { id: 'blu33', name: 'Powder Blue', colors: ['#B0D9FF', '#C5E5FF', '#D9ECFF', '#E6F3FF', '#F3F9FF'], categories: ['blue', 'white'], tags: ['soft', 'light'] },
-  { id: 'blu34', name: 'Ultramarine', colors: ['#0039A6', '#0052CC', '#006FE8', '#0088FF', '#00A8FF'], categories: ['blue'], tags: ['bold', 'deep'] },
-  { id: 'blu35', name: 'Blue Monochrome', colors: ['#001F4D', '#003A7A', '#0052A3', '#006FCF', '#008CFF'], categories: ['blue'], tags: ['professional', 'pure'] },
-  { id: 'blu36', name: 'Moonlit', colors: ['#1A1F4D', '#2D3A7A', '#4052A3', '#5570CF', '#6B8AFF'], categories: ['blue'], tags: ['mystical', 'calm'] },
-  { id: 'blu37', name: 'Iris', colors: ['#6633FF', '#7744FF', '#8855FF', '#9966FF', '#AAABFF'], categories: ['blue', 'purple'], tags: ['elegant', 'mystical'] },
-  { id: 'blu38', name: 'Jeans Blue', colors: ['#004D8C', '#0066B2', '#007FD9', '#0099FF', '#1AB3FF'], categories: ['blue'], tags: ['classic', 'cool'] },
+// Deterministic pseudo-random from seed
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
 
-  // Yellow (38 palettes)
-  { id: 'yel1', name: 'Golden Hour', colors: ['#FFD700', '#FFA500', '#FF8C00', '#DAA520', '#B8860B'], categories: ['yellow', 'orange'], tags: ['warm', 'luxurious'] },
-  { id: 'yel2', name: 'Sunny Days', colors: ['#FFFF00', '#FFED4E', '#FFA500', '#FF8C00', '#FF6347'], categories: ['yellow', 'orange'], tags: ['bright', 'cheerful'] },
-  { id: 'yel3', name: 'Banana Split', colors: ['#FFFF99', '#FFFF66', '#FFFF00', '#FFCC00', '#FFAA00'], categories: ['yellow'], tags: ['playful', 'fun'] },
-  { id: 'yel4', name: 'Lemon Lime', colors: ['#CCFF00', '#FFFF00', '#FFCC00', '#FFAA00', '#FF9900'], categories: ['yellow', 'green'], tags: ['fresh', 'zesty'] },
-  { id: 'yel5', name: 'Sunflower', colors: ['#FFD700', '#FFC700', '#FFAA00', '#FF9500', '#FF8C00'], categories: ['yellow', 'orange'], tags: ['warm', 'natural'] },
-  { id: 'yel6', name: 'Buttercup', colors: ['#FFFACD', '#FFFF99', '#FFFF66', '#FFFF00', '#FFDD00'], categories: ['yellow', 'white'], tags: ['soft', 'cheerful'] },
-  { id: 'yel7', name: 'Mustard Dream', colors: ['#C9A961', '#E6C200', '#FFDD00', '#FFCC00', '#FFAA00'], categories: ['yellow', 'brown'], tags: ['vintage', 'warm'] },
-  { id: 'yel8', name: 'Canary Song', colors: ['#FFFF00', '#FFFACD', '#FFE4B5', '#FFD700', '#FFBA00'], categories: ['yellow', 'orange'], tags: ['bright', 'cheerful'] },
-  { id: 'yel9', name: 'Gold Leaf', colors: ['#FFD700', '#FFDC00', '#FFED4E', '#FFF700', '#FFFF00'], categories: ['yellow'], tags: ['precious', 'warm'] },
-  { id: 'yel10', name: 'Cornsilk', colors: ['#FFF8DC', '#FFF9E6', '#FFFACD', '#FFFAAA', '#FFFF99'], categories: ['yellow', 'white'], tags: ['soft', 'gentle'] },
-  { id: 'yel11', name: 'Egg Yolk', colors: ['#FFD700', '#FFC000', '#FFB300', '#FFA500', '#FF9700'], categories: ['yellow', 'orange'], tags: ['warm', 'natural'] },
-  { id: 'yel12', name: 'Honey Drip', colors: ['#FFD700', '#FFE600', '#FFF000', '#FFFA00', '#FFFF00'], categories: ['yellow'], tags: ['sweet', 'warm'] },
-  { id: 'yel13', name: 'Dandelion', colors: ['#FFE135', '#FFED4E', '#FFFF00', '#FFFF33', '#FFFF66'], categories: ['yellow'], tags: ['bright', 'natural'] },
-  { id: 'yel14', name: 'Sandy Shore', colors: ['#FFCC66', '#FFD700', '#FFE066', '#FFF000', '#FFFF66'], categories: ['yellow', 'orange'], tags: ['warm', 'natural'] },
-  { id: 'yel15', name: 'Lemonade', colors: ['#FFFF99', '#FFFF66', '#FFFF33', '#FFFF00', '#FFDD00'], categories: ['yellow'], tags: ['refreshing', 'sweet'] },
-  { id: 'yel16', name: 'Wheat Field', colors: ['#FFCC00', '#FFD700', '#FFDD00', '#FFEE00', '#FFFF00'], categories: ['yellow'], tags: ['natural', 'warm'] },
-  { id: 'yel17', name: 'Goldenrod', colors: ['#DAA520', '#FFB90F', '#FFC700', '#FFD700', '#FFED4E'], categories: ['yellow', 'orange'], tags: ['warm', 'natural'] },
-  { id: 'yel18', name: 'Star Bright', colors: ['#FFFF00', '#FFFF33', '#FFFF66', '#FFFF99', '#FFFFCC'], categories: ['yellow'], tags: ['bright', 'cheerful'] },
-  { id: 'yel19', name: 'Citrus Burst', colors: ['#FFDD00', '#FFCC00', '#FFB300', '#FF9900', '#FF8800'], categories: ['yellow', 'orange'], tags: ['vibrant', 'fresh'] },
-  { id: 'yel20', name: 'Vanilla Dream', colors: ['#FFFAAA', '#FFFAA0', '#FFFFF0', '#FFFFF5', '#FFFFFF'], categories: ['yellow', 'white'], tags: ['soft', 'sweet'] },
-  { id: 'yel21', name: 'Marigold', colors: ['#FFA500', '#FFB700', '#FFC700', '#FFD700', '#FFED4E'], categories: ['yellow', 'orange'], tags: ['warm', 'vibrant'] },
-  { id: 'yel22', name: 'Daffodil', colors: ['#FFFF00', '#FFFF33', '#FFFF66', '#FFFF99', '#FFFFCC'], categories: ['yellow'], tags: ['bright', 'spring'] },
-  { id: 'yel23', name: 'Sunshine Gold', colors: ['#FFD700', '#FFDE00', '#FFEF00', '#FFFF00', '#FFFF33'], categories: ['yellow'], tags: ['bright', 'warm'] },
-  { id: 'yel24', name: 'Electric Yellow', colors: ['#FFFF00', '#FFFF11', '#FFFF22', '#FFFF33', '#FFFF44'], categories: ['yellow'], tags: ['bright', 'bold'] },
-  { id: 'yel25', name: 'Pale Yellow', colors: ['#FFFFCC', '#FFFFDD', '#FFFFEE', '#FFFFF0', '#FFFFF5'], categories: ['yellow', 'white'], tags: ['soft', 'light'] },
-  { id: 'yel26', name: 'Khaki', colors: ['#F0E68C', '#F5DF4D', '#FFEB3B', '#FFF44F', '#FFFF66'], categories: ['yellow'], tags: ['neutral', 'warm'] },
-  { id: 'yel27', name: 'Highlighter', colors: ['#FFFF00', '#FFFF44', '#FFFF99', '#FFFFCC', '#FFFFE0'], categories: ['yellow'], tags: ['bright', 'bold'] },
-  { id: 'yel28', name: 'Mellow Yellow', colors: ['#FFDD00', '#FFEE00', '#FFFF00', '#FFFF33', '#FFFF66'], categories: ['yellow'], tags: ['warm', 'cheerful'] },
-  { id: 'yel29', name: 'Banana Yellow', colors: ['#FFFF00', '#FFFFAA', '#FFFFBB', '#FFFFCC', '#FFFFDD'], categories: ['yellow'], tags: ['soft', 'sweet'] },
-  { id: 'yel30', name: 'Sand Dollar', colors: ['#FFE4B5', '#FFD700', '#FFC700', '#FFB700', '#FFA700'], categories: ['yellow', 'orange'], tags: ['warm', 'natural'] },
-  { id: 'yel31', name: 'Sunrise', colors: ['#FF6600', '#FF8800', '#FFAA00', '#FFDD00', '#FFFF00'], categories: ['yellow', 'orange'], tags: ['warm', 'gradient'] },
-  { id: 'yel32', name: 'Lemon Zest', colors: ['#FFFFAA', '#FFFFBB', '#FFFFCC', '#FFFFDD', '#FFFFEE'], categories: ['yellow', 'white'], tags: ['bright', 'fresh'] },
-  { id: 'yel33', name: 'Sulfur', colors: ['#FFFF00', '#FFFF22', '#FFFF44', '#FFFF66', '#FFFF88'], categories: ['yellow'], tags: ['bright', 'bold'] },
-  { id: 'yel34', name: 'Nacho Cheese', colors: ['#FFAA00', '#FFBB00', '#FFCC00', '#FFDD00', '#FFEE00'], categories: ['yellow', 'orange'], tags: ['warm', 'bold'] },
-  { id: 'yel35', name: 'School Bus', colors: ['#FFDD00', '#FFEE00', '#FFFF00', '#FFFF11', '#FFFF22'], categories: ['yellow'], tags: ['bright', 'bold'] },
-  { id: 'yel36', name: 'Gold Rush', colors: ['#FFD700', '#FFE000', '#FFEE00', '#FFFF00', '#FFFF44'], categories: ['yellow'], tags: ['luxurious', 'warm'] },
-  { id: 'yel37', name: 'Blond', colors: ['#FFE4AA', '#FFE8BB', '#FFECCC', '#FFF0DD', '#FFF4EE'], categories: ['yellow', 'white'], tags: ['soft', 'light'] },
-  { id: 'yel38', name: 'Bright Spark', colors: ['#FFFF00', '#FFFF33', '#FFFF66', '#FFFF99', '#FFFFBB'], categories: ['yellow'], tags: ['bright', 'energetic'] },
+// Category config: hue range, saturation range, value range, name prefixes
+interface CategoryConfig {
+  hueRange: [number, number];
+  satRange: [number, number];
+  valRange: [number, number];
+  hueShift: number;
+  satShift: number;
+  valShift: number;
+  namePrefixes: string[];
+  nameSuffixes: string[];
+  secondaryCategory?: ColorCategory;
+}
 
-  // Green (38 palettes)
-  { id: 'grn1', name: 'Forest Green', colors: ['#228B22', '#32CD32', '#00C800', '#00AA00', '#006400'], categories: ['green'], tags: ['natural', 'earthy'] },
-  { id: 'grn2', name: 'Lime Zest', colors: ['#32CD32', '#00FF00', '#00FA9A', '#00FF7F', '#3CB371'], categories: ['green', 'yellow'], tags: ['vibrant', 'fresh'] },
-  { id: 'grn3', name: 'Mint Mojito', colors: ['#98FF98', '#90EE90', '#00FF7F', '#00FA9A', '#7FFFD4'], categories: ['green'], tags: ['refreshing', 'cool'] },
-  { id: 'grn4', name: 'Evergreen', colors: ['#0B6623', '#1B5E20', '#2E7D32', '#388E3C', '#43A047'], categories: ['green'], tags: ['deep', 'natural'] },
-  { id: 'grn5', name: 'Sage Wisdom', colors: ['#9DC183', '#A8C686', '#B3CE8F', '#A4AC86', '#8B9878'], categories: ['green', 'grey'], tags: ['muted', 'sophisticated'] },
-  { id: 'grn6', name: 'Seafoam', colors: ['#93E9BE', '#7FFFD4', '#66EEC6', '#5DFFB3', '#4EFFA0'], categories: ['green', 'blue'], tags: ['fresh', 'tropical'] },
-  { id: 'grn7', name: 'Kiwi Pop', colors: ['#00FF00', '#33CC00', '#66FF00', '#99FF00', '#CCFF00'], categories: ['green', 'yellow'], tags: ['bright', 'fun'] },
-  { id: 'grn8', name: 'Moss Garden', colors: ['#556B2F', '#6B8E23', '#7CB342', '#8BC34A', '#9CCC65'], categories: ['green', 'brown'], tags: ['earthy', 'natural'] },
-  { id: 'grn9', name: 'Spring Green', colors: ['#00FF7F', '#00FF99', '#00FFAA', '#00FFBB', '#00FFCC'], categories: ['green'], tags: ['bright', 'spring'] },
-  { id: 'grn10', name: 'Olive Grove', colors: ['#6B8E23', '#7CB342', '#9ACD32', '#BFEF45', '#CDDC39'], categories: ['green'], tags: ['natural', 'earthy'] },
-  { id: 'grn11', name: 'Tropical Leaf', colors: ['#00AA00', '#11BB11', '#22CC22', '#33DD33', '#44EE44'], categories: ['green'], tags: ['vibrant', 'tropical'] },
-  { id: 'grn12', name: 'Pale Green', colors: ['#CCFFCC', '#DDFFDD', '#E0FFE0', '#ECFFEC', '#F0FFF0'], categories: ['green', 'white'], tags: ['soft', 'light'] },
-  { id: 'grn13', name: 'Grass Green', colors: ['#00AA00', '#00BB00', '#00CC00', '#00DD00', '#00EE00'], categories: ['green'], tags: ['bright', 'natural'] },
-  { id: 'grn14', name: 'Kelly Green', colors: ['#4CBB00', '#5FCC00', '#72DD00', '#85EE00', '#98FF00'], categories: ['green'], tags: ['bold', 'vibrant'] },
-  { id: 'grn15', name: 'Jade Stone', colors: ['#00AA88', '#00BB99', '#00CCAA', '#00DDBB', '#00EECC'], categories: ['green', 'blue'], tags: ['precious', 'cool'] },
-  { id: 'grn16', name: 'Emerald', colors: ['#008B66', '#009977', '#00AA88', '#00BB99', '#00CCAA'], categories: ['green'], tags: ['precious', 'luxurious'] },
-  { id: 'grn17', name: 'Lime Light', colors: ['#99FF00', '#AAFF00', '#BBFF00', '#CCFF00', '#DDFF00'], categories: ['green', 'yellow'], tags: ['bright', 'energetic'] },
-  { id: 'grn18', name: 'Mint Chip', colors: ['#00FF88', '#00FF99', '#00FFAA', '#00FFBB', '#00FFCC'], categories: ['green'], tags: ['cool', 'refreshing'] },
-  { id: 'grn19', name: 'Pistachio', colors: ['#BBDDAA', '#CCDDAA', '#DDEEBB', '#EEFFCC', '#F0FFDD'], categories: ['green', 'yellow'], tags: ['soft', 'natural'] },
-  { id: 'grn20', name: 'Pine Forest', colors: ['#1B4D2F', '#2E6641', '#418052', '#549963', '#67B274'], categories: ['green'], tags: ['deep', 'natural'] },
-  { id: 'grn21', name: 'Jungle', colors: ['#004400', '#006600', '#008800', '#00AA00', '#00CC00'], categories: ['green'], tags: ['deep', 'wild'] },
-  { id: 'grn22', name: 'Apple Green', colors: ['#66BB00', '#77CC00', '#88DD00', '#99EE00', '#AAFF00'], categories: ['green', 'yellow'], tags: ['fresh', 'natural'] },
-  { id: 'grn23', name: 'Sea Green', colors: ['#2E8B57', '#3FA060', '#50B569', '#61CA72', '#72DF7B'], categories: ['green', 'blue'], tags: ['natural', 'cool'] },
-  { id: 'grn24', name: 'Neon Green', colors: ['#00FF00', '#22FF22', '#44FF44', '#66FF66', '#88FF88'], categories: ['green'], tags: ['bright', 'electric'] },
-  { id: 'grn25', name: 'Mint Condition', colors: ['#CCFFEE', '#D9FFEF', '#E6FFF0', '#F0FFF2', '#F9FFF8'], categories: ['green', 'white'], tags: ['fresh', 'clean'] },
-  { id: 'grn26', name: 'Hunter Green', colors: ['#335533', '#446644', '#557755', '#668866', '#779977'], categories: ['green'], tags: ['deep', 'sophisticated'] },
-  { id: 'grn27', name: 'Celadon', colors: ['#99DDAA', '#AADDBB', '#BBEEDD', '#CCDDDD', '#DDEEFF'], categories: ['green', 'blue'], tags: ['soft', 'elegant'] },
-  { id: 'grn28', name: 'Fern', colors: ['#557744', '#668855', '#779966', '#88AA77', '#99BB88'], categories: ['green', 'brown'], tags: ['natural', 'earthy'] },
-  { id: 'grn29', name: 'Grass Blade', colors: ['#00CC00', '#00DD00', '#00EE00', '#00FF00', '#22FF22'], categories: ['green'], tags: ['bright', 'vibrant'] },
-  { id: 'grn30', name: 'Green Day', colors: ['#00AA00', '#11BB11', '#22CC22', '#33DD33', '#44EE44'], categories: ['green'], tags: ['cheerful', 'bright'] },
-  { id: 'grn31', name: 'Greenery', colors: ['#88CC44', '#99DD55', '#AAEE66', '#BBFF77', '#CCFF88'], categories: ['green'], tags: ['natural', 'fresh'] },
-  { id: 'grn32', name: 'Sap Green', colors: ['#004400', '#115511', '#226622', '#337733', '#448844'], categories: ['green'], tags: ['deep', 'natural'] },
-  { id: 'grn33', name: 'Mint Mojito Max', colors: ['#00FF88', '#22FF99', '#44FFAA', '#66FFBB', '#88FFCC'], categories: ['green'], tags: ['refreshing', 'cool'] },
-  { id: 'grn34', name: 'Green Machine', colors: ['#00AA00', '#00BB00', '#00CC00', '#00DD00', '#00EE00'], categories: ['green'], tags: ['bold', 'powerful'] },
-  { id: 'grn35', name: 'Chlorophyll', colors: ['#339933', '#449944', '#559955', '#669966', '#779977'], categories: ['green'], tags: ['natural', 'organic'] },
-  { id: 'grn36', name: 'Go Green', colors: ['#00FF33', '#11FF44', '#22FF55', '#33FF66', '#44FF77'], categories: ['green'], tags: ['bright', 'energetic'] },
-  { id: 'grn37', name: 'Green Light', colors: ['#66FF66', '#77FF77', '#88FF88', '#99FF99', '#AAFFAA'], categories: ['green'], tags: ['soft', 'bright'] },
-  { id: 'grn38', name: 'Vital Green', colors: ['#00DD00', '#00EE00', '#00FF00', '#22FF22', '#44FF44'], categories: ['green'], tags: ['energetic', 'vibrant'] },
+const CATEGORY_CONFIGS: Record<ColorCategory, CategoryConfig> = {
+  pastel: {
+    hueRange: [0, 360], satRange: [15, 40], valRange: [85, 98],
+    hueShift: 25, satShift: 3, valShift: 2,
+    namePrefixes: ['Soft', 'Pale', 'Light', 'Muted', 'Gentle', 'Blush', 'Cloud', 'Whisper', 'Silk', 'Mist'],
+    nameSuffixes: ['Bloom', 'Dream', 'Haze', 'Whisper', 'Glow', 'Dawn', 'Sky', 'Petal', 'Breeze', 'Cloud'],
+  },
+  red: {
+    hueRange: [345, 375], satRange: [60, 100], valRange: [40, 95],
+    hueShift: 5, satShift: 5, valShift: 8,
+    namePrefixes: ['Crimson', 'Scarlet', 'Ruby', 'Cherry', 'Fire', 'Cardinal', 'Vermilion', 'Carmine', 'Garnet', 'Flame'],
+    nameSuffixes: ['Blaze', 'Heart', 'Rose', 'Storm', 'Ember', 'Rush', 'Pulse', 'Fury', 'Star', 'Heat'],
+  },
+  blue: {
+    hueRange: [195, 260], satRange: [40, 100], valRange: [30, 95],
+    hueShift: 8, satShift: 5, valShift: 8,
+    namePrefixes: ['Ocean', 'Sky', 'Royal', 'Navy', 'Cobalt', 'Azure', 'Sapphire', 'Cerulean', 'Indigo', 'Steel'],
+    nameSuffixes: ['Depth', 'Wave', 'Dream', 'Horizon', 'Mist', 'Cove', 'Surge', 'Calm', 'Night', 'Tide'],
+  },
+  yellow: {
+    hueRange: [40, 70], satRange: [50, 100], valRange: [50, 98],
+    hueShift: 4, satShift: 5, valShift: 7,
+    namePrefixes: ['Golden', 'Lemon', 'Sunny', 'Honey', 'Amber', 'Canary', 'Dandelion', 'Topaz', 'Sunflower', 'Maize'],
+    nameSuffixes: ['Glow', 'Light', 'Ray', 'Shine', 'Beam', 'Spark', 'Field', 'Dream', 'Warmth', 'Burst'],
+  },
+  green: {
+    hueRange: [85, 165], satRange: [30, 100], valRange: [25, 95],
+    hueShift: 10, satShift: 6, valShift: 8,
+    namePrefixes: ['Forest', 'Emerald', 'Sage', 'Mint', 'Jade', 'Olive', 'Moss', 'Fern', 'Pine', 'Lime'],
+    nameSuffixes: ['Valley', 'Leaf', 'Grove', 'Trail', 'Garden', 'Canopy', 'Glade', 'Meadow', 'Spring', 'Creek'],
+  },
+  orange: {
+    hueRange: [15, 45], satRange: [55, 100], valRange: [45, 95],
+    hueShift: 4, satShift: 5, valShift: 7,
+    namePrefixes: ['Tangerine', 'Coral', 'Peach', 'Apricot', 'Mango', 'Copper', 'Rust', 'Carrot', 'Nectarine', 'Papaya'],
+    nameSuffixes: ['Glow', 'Sunset', 'Flame', 'Warmth', 'Blaze', 'Crisp', 'Harvest', 'Ember', 'Shade', 'Spice'],
+  },
+  brown: {
+    hueRange: [15, 45], satRange: [20, 65], valRange: [15, 60],
+    hueShift: 4, satShift: 4, valShift: 6,
+    namePrefixes: ['Chocolate', 'Coffee', 'Walnut', 'Cinnamon', 'Cedar', 'Mahogany', 'Chestnut', 'Pecan', 'Hazel', 'Driftwood'],
+    nameSuffixes: ['Wood', 'Earth', 'Bark', 'Bean', 'Shell', 'Loaf', 'Oven', 'Harvest', 'Trail', 'Root'],
+  },
+  pink: {
+    hueRange: [320, 350], satRange: [30, 100], valRange: [50, 98],
+    hueShift: 4, satShift: 5, valShift: 7,
+    namePrefixes: ['Rose', 'Bubblegum', 'Flamingo', 'Sakura', 'Blush', 'Fuchsia', 'Carnation', 'Peony', 'Magenta', 'Coral'],
+    nameSuffixes: ['Bloom', 'Petal', 'Kiss', 'Dream', 'Glow', 'Heart', 'Charm', 'Dance', 'Breeze', 'Dew'],
+  },
+  grey: {
+    hueRange: [200, 220], satRange: [0, 12], valRange: [20, 90],
+    hueShift: 15, satShift: 1, valShift: 10,
+    namePrefixes: ['Silver', 'Slate', 'Pewter', 'Ash', 'Granite', 'Iron', 'Smoke', 'Fog', 'Pebble', 'Graphite'],
+    nameSuffixes: ['Stone', 'Mist', 'Shadow', 'Veil', 'Cloud', 'Wall', 'Path', 'Step', 'Line', 'Dust'],
+  },
+  purple: {
+    hueRange: [260, 310], satRange: [25, 100], valRange: [25, 90],
+    hueShift: 6, satShift: 7, valShift: 8,
+    namePrefixes: ['Violet', 'Lavender', 'Plum', 'Amethyst', 'Orchid', 'Grape', 'Royal', 'Iris', 'Lilac', 'Mauve'],
+    nameSuffixes: ['Magic', 'Mist', 'Night', 'Dream', 'Spell', 'Aura', 'Haze', 'Glow', 'Veil', 'Dusk'],
+  },
+  white: {
+    hueRange: [0, 360], satRange: [0, 10], valRange: [90, 100],
+    hueShift: 30, satShift: 1, valShift: 1,
+    namePrefixes: ['Pearl', 'Ivory', 'Snow', 'Cloud', 'Cotton', 'Crystal', 'Lily', 'Vanilla', 'Cream', 'Moon'],
+    nameSuffixes: ['White', 'Light', 'Frost', 'Purity', 'Mist', 'Glow', 'Silk', 'Feather', 'Dew', 'Star'],
+  },
+  black: {
+    hueRange: [0, 360], satRange: [0, 30], valRange: [0, 25],
+    hueShift: 20, satShift: 3, valShift: 3,
+    namePrefixes: ['Midnight', 'Obsidian', 'Raven', 'Onyx', 'Shadow', 'Void', 'Abyss', 'Carbon', 'Ebony', 'Jet'],
+    nameSuffixes: ['Night', 'Dark', 'Deep', 'Soul', 'Core', 'Fall', 'Hole', 'Veil', 'Shade', 'Depth'],
+  },
+  metallic: {
+    hueRange: [30, 55], satRange: [40, 80], valRange: [40, 85],
+    hueShift: 3, satShift: 5, valShift: 8,
+    namePrefixes: ['Gold', 'Silver', 'Bronze', 'Copper', 'Platinum', 'Chrome', 'Brass', 'Titanium', 'Steel', 'Rose Gold'],
+    nameSuffixes: ['Shine', 'Luster', 'Mirror', 'Leaf', 'Forged', 'Polish', 'Plate', 'Gleam', 'Cast', 'Alloy'],
+    secondaryCategory: 'orange',
+  },
+  neon: {
+    hueRange: [0, 360], satRange: [90, 100], valRange: [80, 100],
+    hueShift: 30, satShift: 2, valShift: 2,
+    namePrefixes: ['Electric', 'Cyber', 'Ultraviolet', 'Plasma', 'Laser', 'Quantum', 'Neon', 'Volt', 'Pulse', 'Photon'],
+    nameSuffixes: ['Flash', 'Glow', 'Surge', 'Burst', 'Beam', 'Spark', 'Wave', 'Arc', 'Strike', 'Blaze'],
+  },
+};
 
-  // Orange (38 palettes)
-  { id: 'org1', name: 'Tangerine Dream', colors: ['#FF8C00', '#FFA500', '#FFB84D', '#FFC266', '#FFCC99'], categories: ['orange', 'yellow'], tags: ['warm', 'energetic'] },
-  { id: 'org2', name: 'Pumpkin Patch', colors: ['#FF8C00', '#FF7F50', '#FF6347', '#FF5722', '#FF4500'], categories: ['orange', 'red'], tags: ['warm', 'autumn'] },
-  { id: 'org3', name: 'Coral Reef', colors: ['#FF7F50', '#FF6347', '#FF6B6B', '#FF8C42', '#FFA07A'], categories: ['orange', 'red'], tags: ['vibrant', 'tropical'] },
-  { id: 'org4', name: 'Apricot Blush', colors: ['#FFCC99', '#FFB366', '#FF9966', '#FF8866', '#FF7777'], categories: ['orange', 'pink'], tags: ['soft', 'warm'] },
-  { id: 'org5', name: 'Sunset Glow', colors: ['#FFB347', '#FF9966', '#FF6347', '#FF4500', '#FF3300'], categories: ['orange', 'red'], tags: ['dramatic', 'warm'] },
-  { id: 'org6', name: 'Burnt Orange', colors: ['#8B4513', '#A0522D', '#CD5C5C', '#E08856', '#FF6347'], categories: ['orange', 'brown', 'red'], tags: ['earthy', 'warm'] },
-  { id: 'org7', name: 'Peachy Keen', colors: ['#FFDAB9', '#FFCC99', '#FFAA77', '#FF9955', '#FF7733'], categories: ['orange', 'pink'], tags: ['soft', 'inviting'] },
-  { id: 'org8', name: 'Marmalade', colors: ['#E67E22', '#E8993B', '#EA9D52', '#ECB169', '#EFC580'], categories: ['orange'], tags: ['rich', 'warm'] },
-  { id: 'org9', name: 'Carrot Orange', colors: ['#FF8C00', '#FF9900', '#FFA600', '#FFB300', '#FFC000'], categories: ['orange'], tags: ['bright', 'natural'] },
-  { id: 'org10', name: 'Cantaloupe', colors: ['#FFAA44', '#FFBB55', '#FFCC66', '#FFDD77', '#FFEE88'], categories: ['orange', 'yellow'], tags: ['fruity', 'warm'] },
-  { id: 'org11', name: 'Safety Orange', colors: ['#FF6600', '#FF7700', '#FF8800', '#FF9900', '#FFAA00'], categories: ['orange'], tags: ['bright', 'bold'] },
-  { id: 'org12', name: 'Mango', colors: ['#FF9933', '#FFAA44', '#FFBB55', '#FFCC66', '#FFDD77'], categories: ['orange', 'yellow'], tags: ['tropical', 'fruity'] },
-  { id: 'org13', name: 'Tiger Orange', colors: ['#CC5500', '#DD6600', '#EE7700', '#FF8800', '#FF9900'], categories: ['orange'], tags: ['bold', 'wild'] },
-  { id: 'org14', name: 'Glow Stick', colors: ['#FF8844', '#FF9955', '#FFAA66', '#FFBB77', '#FFCC88'], categories: ['orange'], tags: ['bright', 'glowing'] },
-  { id: 'org15', name: 'Orange Crush', colors: ['#FF6600', '#FF7722', '#FF8844', '#FF9966', '#FFAA88'], categories: ['orange'], tags: ['bold', 'vibrant'] },
-  { id: 'org16', name: 'Papaya', colors: ['#FFCC99', '#FFDD88', '#FFEE77', '#FFFF66', '#FFFF99'], categories: ['orange', 'yellow'], tags: ['tropical', 'fruity'] },
-  { id: 'org17', name: 'Amber Waves', colors: ['#FFAA00', '#FFBB00', '#FFCC00', '#FFDD00', '#FFEE00'], categories: ['orange', 'yellow'], tags: ['warm', 'golden'] },
-  { id: 'org18', name: 'Rust', colors: ['#8B4513', '#AA5522', '#CC6633', '#DD7744', '#EE8855'], categories: ['orange', 'brown'], tags: ['earthy', 'warm'] },
-  { id: 'org19', name: 'Apricot', colors: ['#FFAA77', '#FFBB88', '#FFCC99', '#FFDDAA', '#FFEECC'], categories: ['orange', 'yellow'], tags: ['soft', 'warm'] },
-  { id: 'org20', name: 'Bright Orange', colors: ['#FF6600', '#FF7700', '#FF8800', '#FF9900', '#FFAA00'], categories: ['orange'], tags: ['bright', 'bold'] },
-  { id: 'org21', name: 'Clementine', colors: ['#FF9933', '#FFAA44', '#FFBB55', '#FFCC66', '#FFDD77'], categories: ['orange'], tags: ['bright', 'fruity'] },
-  { id: 'org22', name: 'Persimmon', colors: ['#CC6633', '#DD7744', '#EE8855', '#FF9966', '#FFAA77'], categories: ['orange'], tags: ['warm', 'natural'] },
-  { id: 'org23', name: 'Nectarine', colors: ['#FF9955', '#FFAA66', '#FFBB77', '#FFCC88', '#FFDD99'], categories: ['orange'], tags: ['fruity', 'warm'] },
-  { id: 'org24', name: 'Orange Zest', colors: ['#FF8800', '#FF9911', '#FFAA22', '#FFBB33', '#FFCC44'], categories: ['orange'], tags: ['bright', 'zesty'] },
-  { id: 'org25', name: 'Pale Orange', colors: ['#FFDDCC', '#FFDDDD', '#FFEE99', '#FFFFAA', '#FFFFCC'], categories: ['orange', 'white'], tags: ['soft', 'light'] },
-  { id: 'org26', name: 'Tangy', colors: ['#FF8811', '#FF9933', '#FFAA55', '#FFBB77', '#FFCC99'], categories: ['orange'], tags: ['bright', 'zesty'] },
-  { id: 'org27', name: 'Peach Fuzz', colors: ['#FFCCAA', '#FFDDBB', '#FFEECC', '#FFFFDD', '#FFFFE0'], categories: ['orange', 'white'], tags: ['soft', 'warm'] },
-  { id: 'org28', name: 'Terracotta', colors: ['#CC6644', '#DD7755', '#EE8866', '#FF9977', '#FFAA88'], categories: ['orange', 'brown'], tags: ['earthy', 'warm'] },
-  { id: 'org29', name: 'Marigold Pop', colors: ['#FF9900', '#FFAA11', '#FFBB22', '#FFCC33', '#FFDD44'], categories: ['orange'], tags: ['bright', 'cheerful'] },
-  { id: 'org30', name: 'Ginger', colors: ['#CC7722', '#DD8833', '#EE9944', '#FFAA55', '#FFBB66'], categories: ['orange', 'brown'], tags: ['warm', 'earthy'] },
-  { id: 'org31', name: 'Satsuma', colors: ['#FF9944', '#FFAA55', '#FFBB66', '#FFCC77', '#FFDD88'], categories: ['orange'], tags: ['fruity', 'warm'] },
-  { id: 'org32', name: 'Creamsicle', colors: ['#FF9955', '#FFAA77', '#FFBBAA', '#FFCCCC', '#FFDDDD'], categories: ['orange'], tags: ['soft', 'sweet'] },
-  { id: 'org33', name: 'Orange Dream', colors: ['#FF8833', '#FF9944', '#FFAA55', '#FFBB66', '#FFCC77'], categories: ['orange'], tags: ['warm', 'dreamy'] },
-  { id: 'org34', name: 'Flame Orange', colors: ['#FF5500', '#FF6611', '#FF7722', '#FF8833', '#FF9944'], categories: ['orange', 'red'], tags: ['bold', 'hot'] },
-  { id: 'org35', name: 'Orange Blossom', colors: ['#FFAA88', '#FFBB99', '#FFCCAA', '#FFDDBB', '#FFEECC'], categories: ['orange'], tags: ['soft', 'floral'] },
-  { id: 'org36', name: 'Clockwork Orange', colors: ['#FF6600', '#FF7700', '#FF8800', '#FF9900', '#FFAA00'], categories: ['orange'], tags: ['bold', 'mechanical'] },
-  { id: 'org37', name: 'Ombre Orange', colors: ['#FF3300', '#FF5522', '#FF7744', '#FF9966', '#FFBB88'], categories: ['orange', 'red'], tags: ['gradient', 'warm'] },
-  { id: 'org38', name: 'Dreamy Orange', colors: ['#FF9966', '#FFAA77', '#FFBB88', '#FFCC99', '#FFDDAA'], categories: ['orange'], tags: ['soft', 'warm'] },
+function generateCategoryPalettes(category: ColorCategory, count: number): Palette[] {
+  const config = CATEGORY_CONFIGS[category];
+  const palettes: Palette[] = [];
 
-  // Brown (30 palettes)
-  { id: 'brn1', name: 'Chocolate Truffle', colors: ['#3E2723', '#5D4037', '#6D4C41', '#795548', '#8D6E63'], categories: ['brown'], tags: ['rich', 'warm'] },
-  { id: 'brn2', name: 'Coffee Bean', colors: ['#2C1810', '#3E2723', '#5D4037', '#6D4C41', '#795548'], categories: ['brown', 'black'], tags: ['deep', 'cozy'] },
-  { id: 'brn3', name: 'Caramel Swirl', colors: ['#D2B48C', '#DEB887', '#C19A6B', '#B8860B', '#8B6914'], categories: ['brown', 'yellow'], tags: ['warm', 'sweet'] },
-  { id: 'brn4', name: 'Sandy Beach', colors: ['#F4A460', '#D2B48C', '#C9A876', '#CDAA7D', '#BFAB8E'], categories: ['brown', 'orange'], tags: ['warm', 'natural'] },
-  { id: 'brn5', name: 'Walnut', colors: ['#7C6B5D', '#8B7D6B', '#9B8B7E', '#A89B91', '#B8A89C'], categories: ['brown', 'grey'], tags: ['neutral', 'sophisticated'] },
-  { id: 'brn6', name: 'Cinnamon', colors: ['#A0522D', '#8B4513', '#A0826D', '#B0906F', '#C0A080'], categories: ['brown'], tags: ['warm', 'spicy'] },
-  { id: 'brn7', name: 'Tan', colors: ['#D2B48C', '#D9C4A8', '#DFD0B4', '#E6DCC0', '#EDE8CC'], categories: ['brown', 'white'], tags: ['neutral', 'warm'] },
-  { id: 'brn8', name: 'Chestnut', colors: ['#8B4513', '#A0522D', '#AA6633', '#BB7744', '#CC8855'], categories: ['brown'], tags: ['warm', 'natural'] },
-  { id: 'brn9', name: 'Taupe', colors: ['#7D7969', '#8B8680', '#999077', '#A69A8E', '#B3A8A3'], categories: ['brown', 'grey'], tags: ['neutral', 'sophisticated'] },
-  { id: 'brn10', name: 'Sienna', colors: ['#A0522D', '#B5634D', '#C9755D', '#DD886D', '#F09A7D'], categories: ['brown', 'orange'], tags: ['warm', 'earthy'] },
-  { id: 'brn11', name: 'Mahogany', colors: ['#550000', '#772211', '#994433', '#BB5544', '#DD6655'], categories: ['brown', 'red'], tags: ['rich', 'dark'] },
-  { id: 'brn12', name: 'Beige', colors: ['#E8D7C3', '#EFE0D0', '#F5E9DD', '#FCF3EA', '#FFF8F0'], categories: ['brown', 'white'], tags: ['soft', 'neutral'] },
-  { id: 'brn13', name: 'Auburn', colors: ['#6B4423', '#8B5A2B', '#A0622E', '#B5731E', '#D4840A'], categories: ['brown'], tags: ['warm', 'rich'] },
-  { id: 'brn14', name: 'Tawny', colors: ['#AA7722', '#BB8833', '#CC9944', '#DDAA55', '#EECC77'], categories: ['brown', 'orange'], tags: ['warm', 'earthy'] },
-  { id: 'brn15', name: 'Fawn', colors: ['#CC9966', '#DD9977', '#EEAA88', '#FFBB99', '#FFCCAA'], categories: ['brown', 'orange'], tags: ['soft', 'warm'] },
-  { id: 'brn16', name: 'Sepia', colors: ['#704214', '#8B5A2B', '#A0826D', '#B5A697', '#C9CFC3'], categories: ['brown'], tags: ['vintage', 'warm'] },
-  { id: 'brn17', name: 'Coconut', colors: ['#D9CCBD', '#E5D7C8', '#F0E3D3', '#FBEFDE', '#FFFBF7'], categories: ['brown', 'white'], tags: ['soft', 'warm'] },
-  { id: 'brn18', name: 'Earth Tone', colors: ['#704214', '#885533', '#AA6644', '#CC7755', '#DD8866'], categories: ['brown'], tags: ['natural', 'earthy'] },
-  { id: 'brn19', name: 'Mocha', colors: ['#5C3D2E', '#6D4C41', '#7D5C4F', '#8D6C5D', '#9D7C6D'], categories: ['brown'], tags: ['warm', 'cozy'] },
-  { id: 'brn20', name: 'Pecan', colors: ['#8B6F47', '#9D8560', '#AE9B79', '#BFB192', '#D0C7AB'], categories: ['brown'], tags: ['warm', 'natural'] },
-  { id: 'brn21', name: 'Buff', colors: ['#D4A574', '#E0B589', '#ECB89D', '#F5CBAE', '#FFDEC0'], categories: ['brown', 'orange'], tags: ['soft', 'warm'] },
-  { id: 'brn22', name: 'Russet', colors: ['#884422', '#AA5533', '#CC6644', '#DD7755', '#EE8866'], categories: ['brown', 'red'], tags: ['warm', 'earthy'] },
-  { id: 'brn23', name: 'Umber', colors: ['#3E2723', '#5D4037', '#7D5E55', '#9D7E75', '#BD9E95'], categories: ['brown'], tags: ['dark', 'warm'] },
-  { id: 'brn24', name: 'Adobe', colors: ['#9B7653', '#A98568', '#B5947D', '#C1A392', '#CDB2A7'], categories: ['brown'], tags: ['warm', 'earthy'] },
-  { id: 'brn25', name: 'Bisque', colors: ['#E8CFC9', '#F0D9D4', '#F5E3DE', '#FAEAE6', '#FFF5F2'], categories: ['brown', 'white'], tags: ['soft', 'light'] },
-  { id: 'brn26', name: 'Teak', colors: ['#5C4033', '#6D5144', '#7E6255', '#8F7366', '#A08477'], categories: ['brown'], tags: ['natural', 'warm'] },
-  { id: 'brn27', name: 'Chutney', colors: ['#996633', '#AA7744', '#BB8855', '#CC9966', '#DDAA77'], categories: ['brown', 'orange'], tags: ['warm', 'spicy'] },
-  { id: 'brn28', name: 'Driftwood', colors: ['#909090', '#A0A0A0', '#8B8B7D', '#9D9D8F', '#AFA9A0'], categories: ['brown', 'grey'], tags: ['neutral', 'natural'] },
-  { id: 'brn29', name: 'Bark', colors: ['#4D3D2F', '#5D4D3F', '#6D5D4F', '#7D6D5F', '#8D7D6F'], categories: ['brown'], tags: ['dark', 'natural'] },
-  { id: 'brn30', name: 'Gingerbread', colors: ['#663333', '#774444', '#885555', '#996666', '#AA7777'], categories: ['brown'], tags: ['warm', 'sweet'] },
+  for (let i = 0; i < count; i++) {
+    const seed = i + 1;
+    const r1 = seededRandom(seed * 7 + 1);
+    const r2 = seededRandom(seed * 13 + 2);
+    const r3 = seededRandom(seed * 17 + 3);
+    const r4 = seededRandom(seed * 23 + 4);
+    const r5 = seededRandom(seed * 29 + 5);
 
-  // Pink (30 palettes)
-  { id: 'pnk1', name: 'Rose Gold', colors: ['#B76E79', '#C9657F', '#DB6B8E', '#ED7F9D', '#FF8FAC'], categories: ['pink', 'orange'], tags: ['luxurious', 'elegant'] },
-  { id: 'pnk2', name: 'Bubblegum', colors: ['#FF69B4', '#FF1493', '#FF6EC7', '#FF85D4', '#FFA2DB'], categories: ['pink'], tags: ['fun', 'playful'] },
-  { id: 'pnk3', name: 'Flamingo', colors: ['#FF6B9D', '#FF5B92', '#FF4B87', '#FF3B7C', '#FF2B71'], categories: ['pink', 'red'], tags: ['bold', 'tropical'] },
-  { id: 'pnk4', name: 'Cotton Candy', colors: ['#FFB6D9', '#FFC0D4', '#FFCCDB', '#FFD8E2', '#FFE4E9'], categories: ['pink', 'white'], tags: ['sweet', 'soft'] },
-  { id: 'pnk5', name: 'Mauve Magic', colors: ['#D896D8', '#E0A0E0', '#E8AAE8', '#F0B4F0', '#F8BEF8'], categories: ['pink', 'purple'], tags: ['magical', 'soft'] },
-  { id: 'pnk6', name: 'Blush Crush', colors: ['#FF99BB', '#FF88AA', '#FF7799', '#FF6688', '#FF5577'], categories: ['pink', 'red'], tags: ['romantic', 'sweet'] },
-  { id: 'pnk7', name: 'Sakura Bloom', colors: ['#FFB7C5', '#FFA6B8', '#FF95AB', '#FF849E', '#FF7391'], categories: ['pink'], tags: ['delicate', 'nature'] },
-  { id: 'pnk8', name: 'Hot Pink', colors: ['#FF1493', '#FF2BA4', '#FF3DB5', '#FF4FC6', '#FF61D7'], categories: ['pink'], tags: ['bold', 'vibrant'] },
-  { id: 'pnk9', name: 'Baby Pink', colors: ['#FFB3D9', '#FFC0D9', '#FFCCDD', '#FFD9E3', '#FFE6E9'], categories: ['pink', 'white'], tags: ['soft', 'gentle'] },
-  { id: 'pnk10', name: 'Magenta Dreams', colors: ['#FF00FF', '#FF1FFF', '#FF3FFF', '#FF5FFF', '#FF7FFF'], categories: ['pink', 'purple'], tags: ['vibrant', 'bold'] },
-  { id: 'pnk11', name: 'Candy Pink', colors: ['#FF88DD', '#FF99DD', '#FFAADD', '#FFBBDD', '#FFCCDD'], categories: ['pink'], tags: ['sweet', 'soft'] },
-  { id: 'pnk12', name: 'Dusty Rose', colors: ['#B5888C', '#C29A98', '#CDACA4', '#D7BDB0', '#E1CFBC'], categories: ['pink', 'brown'], tags: ['soft', 'vintage'] },
-  { id: 'pnk13', name: 'Flambe', colors: ['#EE5A6F', '#F06A7B', '#F27A86', '#F48A92', '#F69A9E'], categories: ['pink', 'red'], tags: ['warm', 'vibrant'] },
-  { id: 'pnk14', name: 'Princess', colors: ['#FF00AA', '#FF11BB', '#FF22CC', '#FF33DD', '#FF44EE'], categories: ['pink', 'purple'], tags: ['bold', 'regal'] },
-  { id: 'pnk15', name: 'Ballerina', colors: ['#FFD4E5', '#FFE0E9', '#FFECEF', '#FFF5F5', '#FFFBFB'], categories: ['pink', 'white'], tags: ['soft', 'graceful'] },
-  { id: 'pnk16', name: 'Shocking Pink', colors: ['#FF0080', '#FF1A95', '#FF33AA', '#FF4DBF', '#FF66D4'], categories: ['pink'], tags: ['bold', 'vibrant'] },
-  { id: 'pnk17', name: 'Fuchsia', colors: ['#FF00FF', '#FF1AFF', '#FF33FF', '#FF4DFF', '#FF66FF'], categories: ['pink', 'purple'], tags: ['bold', 'vibrant'] },
-  { id: 'pnk18', name: 'Salmon Pink', colors: ['#FF9999', '#FFAAAA', '#FFBBBB', '#FFCCCC', '#FFDDDD'], categories: ['pink', 'orange'], tags: ['soft', 'warm'] },
-  { id: 'pnk19', name: 'Blossom', colors: ['#FFB3D4', '#FFC0D9', '#FFCCDD', '#FFD9E3', '#FFE6E9'], categories: ['pink'], tags: ['delicate', 'floral'] },
-  { id: 'pnk20', name: 'Cerise', colors: ['#DE3163', '#E55A7B', '#ED7393', '#F58BAB', '#FCA3C3'], categories: ['pink', 'red'], tags: ['vibrant', 'bold'] },
-  { id: 'pnk21', name: 'Deep Pink', colors: ['#CC0066', '#DD0077', '#EE0088', '#FF0099', '#FF1AAA'], categories: ['pink', 'red'], tags: ['bold', 'deep'] },
-  { id: 'pnk22', name: 'Tea Rose', colors: ['#F8B1C8', '#FACAD3', '#FCE0D9', '#FDEEE0', '#FEFCE7'], categories: ['pink', 'white'], tags: ['soft', 'romantic'] },
-  { id: 'pnk23', name: 'Coral Pink', colors: ['#FF8080', '#FF9090', '#FFA0A0', '#FFB0B0', '#FFC0C0'], categories: ['pink', 'orange'], tags: ['warm', 'soft'] },
-  { id: 'pnk24', name: 'Mauvelous', colors: ['#EF9A9A', '#F0AAAA', '#F1BBBB', '#F2CCCC', '#F3DDDD'], categories: ['pink', 'purple'], tags: ['soft', 'elegant'] },
-  { id: 'pnk25', name: 'Orchid Pink', colors: ['#D896D8', '#E0A0E0', '#E8AAE8', '#F0B4F0', '#F8BEF8'], categories: ['pink', 'purple'], tags: ['delicate', 'floral'] },
-  { id: 'pnk26', name: 'Tickle Me Pink', colors: ['#FF77CC', '#FF88DD', '#FF99DD', '#FFAA99', '#FFBBAA'], categories: ['pink'], tags: ['playful', 'fun'] },
-  { id: 'pnk27', name: 'Pale Dogwood', colors: ['#ECCCD4', '#F0D4DD', '#F4DCE6', '#F8E4EF', '#FCECF8'], categories: ['pink', 'white'], tags: ['soft', 'delicate'] },
-  { id: 'pnk28', name: 'Watermelon Pink', colors: ['#FF5577', '#FF6688', '#FF7799', '#FF88AA', '#FF99BB'], categories: ['pink', 'red'], tags: ['fruity', 'vibrant'] },
-  { id: 'pnk29', name: 'Peony Pink', colors: ['#FF77BB', '#FF88BB', '#FF99BB', '#FFAA99', '#FFBBAA'], categories: ['pink'], tags: ['delicate', 'floral'] },
-  { id: 'pnk30', name: 'Vivid Pink', colors: ['#FF0066', '#FF1177', '#FF2288', '#FF3399', '#FF44AA'], categories: ['pink'], tags: ['bold', 'vibrant'] },
+    // Base hue within category range
+    const hueSpan = config.hueRange[1] - config.hueRange[0];
+    const baseHue = (config.hueRange[0] + r1 * hueSpan) % 360;
 
-  // Grey (26 palettes)
-  { id: 'gry1', name: 'Silver Lining', colors: ['#D3D3D3', '#C0C0C0', '#A9A9A9', '#808080', '#696969'], categories: ['grey', 'white'], tags: ['neutral', 'sophisticated'] },
-  { id: 'gry2', name: 'Charcoal Dreams', colors: ['#36454F', '#2F4F4F', '#404040', '#555555', '#696969'], categories: ['grey', 'black'], tags: ['dark', 'professional'] },
-  { id: 'gry3', name: 'Stone Path', colors: ['#A9A9A9', '#808080', '#696969', '#555555', '#404040'], categories: ['grey'], tags: ['neutral', 'calm'] },
-  { id: 'gry4', name: 'Ash Spectrum', colors: ['#DCDCDC', '#BEBEBE', '#A9A9A9', '#808080', '#505050'], categories: ['grey', 'white', 'black'], tags: ['neutral', 'versatile'] },
-  { id: 'gry5', name: 'Smoke Signal', colors: ['#708090', '#778899', '#696969', '#555555', '#404040'], categories: ['grey'], tags: ['moody', 'calm'] },
-  { id: 'gry6', name: 'Platinum', colors: ['#F5F5F5', '#E8E8E8', '#C0C0C0', '#A9A9A9', '#808080'], categories: ['grey', 'white'], tags: ['modern', 'clean'] },
-  { id: 'gry7', name: 'Concrete', colors: ['#A8A9AD', '#989FA8', '#888F96', '#787E84', '#686D72'], categories: ['grey'], tags: ['industrial', 'neutral'] },
-  { id: 'gry8', name: 'Slate', colors: ['#708090', '#647A8F', '#596B87', '#4E5C7F', '#434D77'], categories: ['grey'], tags: ['sophisticated', 'cool'] },
-  { id: 'gry9', name: 'Gunmetal', colors: ['#2C3E50', '#34495E', '#445566', '#556677', '#667788'], categories: ['grey', 'blue'], tags: ['strong', 'modern'] },
-  { id: 'gry10', name: 'Fog', colors: ['#D9D9D9', '#E0E0E0', '#E7E7E7', '#EEEEEE', '#F5F5F5'], categories: ['grey', 'white'], tags: ['soft', 'light'] },
-  { id: 'gry11', name: 'Granite', colors: ['#7D7D7D', '#8B8B8B', '#999999', '#A7A7A7', '#B5B5B5'], categories: ['grey'], tags: ['strong', 'natural'] },
-  { id: 'gry12', name: 'Shadow', colors: ['#4D4D4D', '#5C5C5C', '#6B6B6B', '#7A7A7A', '#898989'], categories: ['grey', 'black'], tags: ['dark', 'moody'] },
-  { id: 'gry13', name: 'Manatee', colors: ['#9BA3AF', '#A4AEBA', '#ADBACC', '#B6C5DD', '#BFD1EE'], categories: ['grey', 'blue'], tags: ['soft', 'cool'] },
-  { id: 'gry14', name: 'Gainsboro', colors: ['#DCDCDC', '#E4E4E4', '#ECECEC', '#F4F4F4', '#FCFCFC'], categories: ['grey', 'white'], tags: ['soft', 'light'] },
-  { id: 'gry15', name: 'Quicksand', colors: ['#C4C4C4', '#D0D0D0', '#DCDCDC', '#E8E8E8', '#F4F4F4'], categories: ['grey', 'white'], tags: ['neutral', 'soft'] },
-  { id: 'gry16', name: 'Pewter', colors: ['#8FA3B0', '#9CB1BE', '#A9BFCC', '#B6CDDA', '#C3DBE8'], categories: ['grey', 'blue'], tags: ['cool', 'sophisticated'] },
-  { id: 'gry17', name: 'Pavement', colors: ['#6F6F6F', '#7E7E7E', '#8D8D8D', '#9C9C9C', '#ABABAB'], categories: ['grey'], tags: ['neutral', 'solid'] },
-  { id: 'gry18', name: 'Moonstorm', colors: ['#576470', '#667580', '#768490', '#8693A0', '#96A2B0'], categories: ['grey', 'blue'], tags: ['cool', 'mysterious'] },
-  { id: 'gry19', name: 'Graphite', colors: ['#383838', '#484848', '#585858', '#686868', '#787878'], categories: ['grey', 'black'], tags: ['dark', 'strong'] },
-  { id: 'gry20', name: 'Linen', colors: ['#E7E5E0', '#EEEBDB', '#F2EEDA', '#F5EDD8', '#F8F0D7'], categories: ['grey', 'white'], tags: ['soft', 'warm'] },
-  { id: 'gry21', name: 'Ashen', colors: ['#B8B8B8', '#C4C4C4', '#D0D0D0', '#DCDCDC', '#E8E8E8'], categories: ['grey', 'white'], tags: ['neutral', 'soft'] },
-  { id: 'gry22', name: 'Twilight Grey', colors: ['#A0A0A0', '#B0B0B0', '#C0C0C0', '#D0D0D0', '#E0E0E0'], categories: ['grey'], tags: ['neutral', 'calm'] },
-  { id: 'gry23', name: 'Boulder', colors: ['#777777', '#888888', '#999999', '#AAAAAA', '#BBBBBB'], categories: ['grey'], tags: ['neutral', 'solid'] },
-  { id: 'gry24', name: 'Mist', colors: ['#E0E0E0', '#E8E8E8', '#F0F0F0', '#F8F8F8', '#FFFFFF'], categories: ['grey', 'white'], tags: ['soft', 'light'] },
-  { id: 'gry25', name: 'Steel Wool', colors: ['#707070', '#808080', '#909090', '#A0A0A0', '#B0B0B0'], categories: ['grey'], tags: ['neutral', 'solid'] },
-  { id: 'gry26', name: 'Whisper', colors: ['#EEEEEE', '#F2F2F2', '#F6F6F6', '#FAFAFA', '#FFFFFF'], categories: ['grey', 'white'], tags: ['light', 'airy'] },
+    // Base saturation and value
+    const satSpan = config.satRange[1] - config.satRange[0];
+    const valSpan = config.valRange[1] - config.valRange[0];
+    const baseSat = config.satRange[0] + r2 * satSpan;
+    const baseVal = config.valRange[0] + r3 * valSpan;
 
-  // Purple (26 palettes)
-  { id: 'pur1', name: 'Royal Purple', colors: ['#7851A9', '#9370DB', '#BA55D3', '#DA70D6', '#EE82EE'], categories: ['purple', 'pink'], tags: ['regal', 'elegant'] },
-  { id: 'pur2', name: 'Violet Dream', colors: ['#8B00FF', '#9933FF', '#AA66FF', '#BB99FF', '#CCCCFF'], categories: ['purple'], tags: ['magical', 'dreamy'] },
-  { id: 'pur3', name: 'Indigo Night', colors: ['#1A0B2E', '#3D0C57', '#58106E', '#7B2D85', '#A63696'], categories: ['purple', 'black'], tags: ['dark', 'mysterious'] },
-  { id: 'pur4', name: 'Lavender Haze', colors: ['#D896D8', '#E0A0E0', '#E8AAE8', '#F0B4F0', '#F8BEF8'], categories: ['purple', 'pink'], tags: ['soft', 'calming'] },
-  { id: 'pur5', name: 'Plum Perfect', colors: ['#701C86', '#8B3A62', '#A54C7B', '#BF6E94', '#D890AD'], categories: ['purple', 'pink'], tags: ['rich', 'warm'] },
-  { id: 'pur6', name: 'Grape Juice', colors: ['#663399', '#7B4FB8', '#9370DB', '#BA55D3', '#DA70D6'], categories: ['purple'], tags: ['bold', 'fruity'] },
-  { id: 'pur7', name: 'Amethyst Stone', colors: ['#9966CC', '#AA77DD', '#BB88EE', '#CCAAFF', '#DDBBFF'], categories: ['purple'], tags: ['mystical', 'precious'] },
-  { id: 'pur8', name: 'Orchid', colors: ['#DA70D6', '#E080E0', '#E690EA', '#ECA0F4', '#F2B0FE'], categories: ['purple', 'pink'], tags: ['delicate', 'floral'] },
-  { id: 'pur9', name: 'Deep Purple', colors: ['#330066', '#550099', '#7700CC', '#9900FF', '#BB00FF'], categories: ['purple'], tags: ['bold', 'deep'] },
-  { id: 'pur10', name: 'Lilac', colors: ['#C8A2C8', '#D4B2D4', '#E0C2E0', '#ECD2EC', '#F8E2F8'], categories: ['purple', 'pink'], tags: ['soft', 'delicate'] },
-  { id: 'pur11', name: 'Mauve', colors: ['#B8A3C8', '#C1B0D1', '#CABDDA', '#D3CAE3', '#DCD7EC'], categories: ['purple'], tags: ['soft', 'vintage'] },
-  { id: 'pur12', name: 'Thistle', colors: ['#D8BFD8', '#E0C8E0', '#E8D1E8', '#F0DAF0', '#F8E3F8'], categories: ['purple', 'pink'], tags: ['soft', 'floral'] },
-  { id: 'pur13', name: 'Eggplant', colors: ['#332211', '#553333', '#775555', '#996666', '#BB8888'], categories: ['purple', 'brown'], tags: ['deep', 'dark'] },
-  { id: 'pur14', name: 'Iris Purple', colors: ['#6633FF', '#7744FF', '#8855FF', '#9966FF', '#AAABFF'], categories: ['purple'], tags: ['elegant', 'mystical'] },
-  { id: 'pur15', name: 'Blueberry', colors: ['#553366', '#664477', '#775588', '#886699', '#9977AA'], categories: ['purple', 'blue'], tags: ['dark', 'fruity'] },
-  { id: 'pur16', name: 'Lavender Purple', colors: ['#B8B3E0', '#CABFEC', '#DCCBF8', '#DFD4FF', '#E0D4FF'], categories: ['purple'], tags: ['soft', 'calming'] },
-  { id: 'pur17', name: 'Pansy', colors: ['#7B68EE', '#8B82FF', '#9B9CFF', '#ABB6FF', '#BBCBFF'], categories: ['purple'], tags: ['floral', 'soft'] },
-  { id: 'pur18', name: 'Periwinkle Purple', colors: ['#CCCCFF', '#DDDDFF', '#D9D9FF', '#E0E0FF', '#EBEBFF'], categories: ['purple', 'blue'], tags: ['soft', 'dreamy'] },
-  { id: 'pur19', name: 'Thistle Dream', colors: ['#D8BFD8', '#E0C8E0', '#E8D1E8', '#F0DAF0', '#F8E3F8'], categories: ['purple', 'pink'], tags: ['soft', 'dreamy'] },
-  { id: 'pur20', name: 'Violet Haze', colors: ['#9966FF', '#AA77FF', '#BB88FF', '#CC99FF', '#DDAAFF'], categories: ['purple'], tags: ['mystical', 'soft'] },
-  { id: 'pur21', name: 'Dark Purple', colors: ['#330066', '#440088', '#5500AA', '#6600CC', '#7700EE'], categories: ['purple'], tags: ['deep', 'bold'] },
-  { id: 'pur22', name: 'Purple Haze', colors: ['#8844FF', '#9955FF', '#AA66FF', '#BB77FF', '#CC88FF'], categories: ['purple'], tags: ['mystical', 'vibrant'] },
-  { id: 'pur23', name: 'Crocus', colors: ['#B39DDB', '#BFA8E0', '#CBB3E5', '#D7BEEA', '#E3C9EF'], categories: ['purple', 'blue'], tags: ['soft', 'floral'] },
-  { id: 'pur24', name: 'Heather', colors: ['#B8A3C8', '#BFB0CE', '#C6BDD4', '#CDCADA', '#D4D7E0'], categories: ['purple', 'grey'], tags: ['soft', 'muted'] },
-  { id: 'pur25', name: 'Purple Velvet', colors: ['#551199', '#663399', '#775599', '#887799', '#9999BB'], categories: ['purple'], tags: ['luxurious', 'deep'] },
-  { id: 'pur26', name: 'Violet Vision', colors: ['#AA00FF', '#BB11FF', '#CC22FF', '#DD33FF', '#EE44FF'], categories: ['purple'], tags: ['bold', 'vibrant'] },
+    // Generate 5 colors with harmonious variation
+    const colors: string[] = [];
+    for (let j = 0; j < 5; j++) {
+      const rJ = seededRandom(seed * 31 + j * 37);
+      const rJ2 = seededRandom(seed * 41 + j * 43);
+      const rJ3 = seededRandom(seed * 47 + j * 53);
 
-  // White (20 palettes)
-  { id: 'wht1', name: 'Pure White', colors: ['#FFFFFF', '#F8F8F8', '#F0F0F0', '#E8E8E8', '#E0E0E0'], categories: ['white'], tags: ['clean', 'minimal'] },
-  { id: 'wht2', name: 'Ivory Elegance', colors: ['#FFFFF0', '#FFFFF5', '#FFFAF0', '#FFFACD', '#FFF8DC'], categories: ['white', 'yellow'], tags: ['elegant', 'soft'] },
-  { id: 'wht3', name: 'Cloud White', colors: ['#F5F5F5', '#FAFAFA', '#F8F8F8', '#F0F0F0', '#E8E8E8'], categories: ['white'], tags: ['clean', 'airy'] },
-  { id: 'wht4', name: 'Pearl', colors: ['#FDEEF4', '#FCE4EC', '#F8BBD0', '#F48FB1', '#F06292'], categories: ['white', 'pink'], tags: ['elegant', 'precious'] },
-  { id: 'wht5', name: 'Milky Whites', colors: ['#FFFFFF', '#FFFBF0', '#FFF9E6', '#FFF8DC', '#FFFAF0'], categories: ['white', 'yellow'], tags: ['pure', 'soft'] },
-  { id: 'wht6', name: 'Canvas', colors: ['#FAFAFA', '#F5F5F5', '#F0F0F0', '#E8E8E8', '#DEDEDE'], categories: ['white'], tags: ['neutral', 'blank'] },
-  { id: 'wht7', name: 'Cream Dream', colors: ['#FFFDD0', '#FFFEC0', '#FFFEB0', '#FFFEA0', '#FFFD90'], categories: ['white', 'yellow'], tags: ['soft', 'warm'] },
-  { id: 'wht8', name: 'Eggshell', colors: ['#F0F0F0', '#F3F3F3', '#F6F6F6', '#F9F9F9', '#FCFCFC'], categories: ['white'], tags: ['soft', 'gentle'] },
-  { id: 'wht9', name: 'Linen', colors: ['#FAF0E6', '#F5EBE0', '#F0E6DA', '#E9DFD4', '#E0D5CE'], categories: ['white', 'brown'], tags: ['natural', 'warm'] },
-  { id: 'wht10', name: 'Snow', colors: ['#FFFAFA', '#FFF8F8', '#FFF5F5', '#FFF2F2', '#FFEFEF'], categories: ['white'], tags: ['pure', 'cold'] },
-  { id: 'wht11', name: 'Floral White', colors: ['#FFFAF0', '#FFF9F0', '#FFF8F0', '#FFF7F0', '#FFF6F0'], categories: ['white'], tags: ['soft', 'warm'] },
-  { id: 'wht12', name: 'White Smoke', colors: ['#F5F5F5', '#F8F8F8', '#FBFBFB', '#FEFEFE', '#FFFFFF'], categories: ['white'], tags: ['light', 'neutral'] },
-  { id: 'wht13', name: 'Antique White', colors: ['#FAEBD7', '#F5E6D3', '#F0DFCF', '#E9D8CB', '#E0D1C7'], categories: ['white', 'yellow'], tags: ['vintage', 'warm'] },
-  { id: 'wht14', name: 'Blanche', colors: ['#FFEBCD', '#FFE4B5', '#FFDDA0', '#FFD68A', '#FFCF75'], categories: ['white', 'orange'], tags: ['soft', 'warm'] },
-  { id: 'wht15', name: 'Whisper White', colors: ['#F9F9F9', '#FAFAFA', '#FBFBFB', '#FCFCFC', '#FDFDFD'], categories: ['white'], tags: ['light', 'minimal'] },
-  { id: 'wht16', name: 'Ghost', colors: ['#F8F8F8', '#FAFAFA', '#FCFCFC', '#FEFEFE', '#FFFFFF'], categories: ['white'], tags: ['neutral', 'clean'] },
-  { id: 'wht17', name: 'Honeycomb', colors: ['#FFFFF0', '#FFFFEE', '#FFFFEC', '#FFFFEA', '#FFFFE8'], categories: ['white', 'yellow'], tags: ['soft', 'light'] },
-  { id: 'wht18', name: 'Seashell', colors: ['#FFF5EE', '#FFF0E0', '#FFEAD0', '#FFE4C0', '#FFDDB0'], categories: ['white', 'orange'], tags: ['soft', 'natural'] },
-  { id: 'wht19', name: 'Mint Cream', colors: ['#F5FFFA', '#EEFFFF', '#E0FFFF', '#D0FFFF', '#C0FFFF'], categories: ['white', 'green'], tags: ['fresh', 'cool'] },
-  { id: 'wht20', name: 'Zen White', colors: ['#FDFDFD', '#FEFEFE', '#FFFFFF', '#FFFFFF', '#FFFFFF'], categories: ['white'], tags: ['pure', 'peaceful'] },
+      const hShift = (j - 2) * config.hueShift + (rJ - 0.5) * config.hueShift * 0.5;
+      const sShift = (j - 2) * config.satShift + (rJ2 - 0.5) * config.satShift * 0.3;
+      const vShift = (j - 2) * config.valShift + (rJ3 - 0.5) * config.valShift * 0.3;
 
-  // Black (20 palettes)
-  { id: 'blk1', name: 'Midnight Black', colors: ['#000000', '#0A0E27', '#16213E', '#0F3460', '#1A1A1A'], categories: ['black'], tags: ['deep', 'mysterious'] },
-  { id: 'blk2', name: 'Obsidian', colors: ['#0B0C0E', '#1C1C1C', '#2D2D2D', '#404040', '#555555'], categories: ['black', 'grey'], tags: ['dark', 'sleek'] },
-  { id: 'blk3', name: 'Void', colors: ['#000000', '#111111', '#222222', '#333333', '#444444'], categories: ['black', 'grey'], tags: ['stark', 'minimal'] },
-  { id: 'blk4', name: 'Raven', colors: ['#1A1A2E', '#16213E', '#0F3460', '#533483', '#16213E'], categories: ['black', 'purple'], tags: ['dark', 'sophisticated'] },
-  { id: 'blk5', name: 'Shadow Soul', colors: ['#0D0221', '#3D0C57', '#58106E', '#7B2D85', '#1A1A1A'], categories: ['black', 'purple'], tags: ['mysterious', 'dramatic'] },
-  { id: 'blk6', name: 'Carbon', colors: ['#1F2937', '#111827', '#030712', '#0D1117', '#161B22'], categories: ['black', 'grey'], tags: ['dark', 'technical'] },
-  { id: 'blk7', name: 'Ink Black', colors: ['#1A1A2E', '#0F0F1E', '#05050E', '#000000', '#0A0A0F'], categories: ['black'], tags: ['deep', 'pure'] },
-  { id: 'blk8', name: 'Jet', colors: ['#222222', '#1A1A1A', '#121212', '#0A0A0A', '#000000'], categories: ['black'], tags: ['dark', 'solid'] },
-  { id: 'blk9', name: 'Ebony', colors: ['#3D3D3D', '#2A2A2A', '#171717', '#0A0A0A', '#000000'], categories: ['black'], tags: ['dark', 'strong'] },
-  { id: 'blk10', name: 'Licorice', colors: ['#1A1A1A', '#141414', '#0E0E0E', '#080808', '#000000'], categories: ['black'], tags: ['dark', 'deep'] },
-  { id: 'blk11', name: 'Pitch Black', colors: ['#000000', '#0A0A0A', '#141414', '#1E1E1E', '#282828'], categories: ['black', 'grey'], tags: ['pure', 'deep'] },
-  { id: 'blk12', name: 'Onyx', colors: ['#0D0D0D', '#1A1A1A', '#262626', '#333333', '#404040'], categories: ['black', 'grey'], tags: ['solid', 'elegant'] },
-  { id: 'blk13', name: 'Blackest Night', colors: ['#000000', '#050505', '#0A0A0A', '#0F0F0F', '#141414'], categories: ['black'], tags: ['pure', 'dark'] },
-  { id: 'blk14', name: 'Coal', colors: ['#2C2C2C', '#242424', '#1C1C1C', '#141414', '#0C0C0C'], categories: ['black', 'grey'], tags: ['dark', 'neutral'] },
-  { id: 'blk15', name: 'Dark Matter', colors: ['#1A1F2E', '#1F2433', '#242A38', '#29303D', '#2E3642'], categories: ['black', 'blue'], tags: ['dark', 'mysterious'] },
-  { id: 'blk16', name: 'Black Hole', colors: ['#000000', '#1A1A1A', '#333333', '#4D4D4D', '#666666'], categories: ['black', 'grey'], tags: ['dark', 'powerful'] },
-  { id: 'blk17', name: 'Midnight Blue Black', colors: ['#0D0527', '#150F3F', '#1D1757', '#251F6F', '#2D2787'], categories: ['black', 'blue'], tags: ['dark', 'cool'] },
-  { id: 'blk18', name: 'Raven Wing', colors: ['#1A1A1A', '#2A2A2A', '#3A3A3A', '#4A4A4A', '#5A5A5A'], categories: ['black', 'grey'], tags: ['dark', 'solid'] },
-  { id: 'blk19', name: 'Licorice Black', colors: ['#0F0F0F', '#1A1A1A', '#252525', '#303030', '#3B3B3B'], categories: ['black', 'grey'], tags: ['dark', 'deep'] },
-  { id: 'blk20', name: 'Pure Black', colors: ['#000000', '#0A0A0A', '#141414', '#1E1E1E', '#282828'], categories: ['black', 'grey'], tags: ['pure', 'solid'] },
+      const h = ((baseHue + hShift) % 360 + 360) % 360;
+      const s = Math.max(config.satRange[0], Math.min(config.satRange[1] + 10, baseSat + sShift));
+      const v = Math.max(config.valRange[0], Math.min(config.valRange[1] + 5, baseVal + vShift));
 
-  // Metallic (50 palettes)
-  { id: 'met1', name: 'Gold Leaf', colors: ['#FFD700', '#F0C000', '#E0AD00', '#D4A900', '#C9A000'], categories: ['metallic', 'yellow'], tags: ['precious', 'warm'] },
-  { id: 'met2', name: 'Silver Mirror', colors: ['#E8E8E8', '#D0D0D0', '#B8B8B8', '#A0A0A0', '#888888'], categories: ['metallic', 'grey'], tags: ['reflective', 'cool'] },
-  { id: 'met3', name: 'Bronze Age', colors: ['#CD7F32', '#C87F3D', '#C37F47', '#BE7F51', '#B97F5B'], categories: ['metallic', 'brown'], tags: ['warm', 'ancient'] },
-  { id: 'met4', name: 'Rose Gold', colors: ['#B76E79', '#C9657F', '#DB6B8E', '#ED7F9D', '#FF8FAC'], categories: ['metallic', 'pink'], tags: ['luxurious', 'warm'] },
-  { id: 'met5', name: 'Copper Glow', colors: ['#B87333', '#C97E44', '#D98955', '#E99466', '#F99F77'], categories: ['metallic', 'orange'], tags: ['warm', 'glowing'] },
-  { id: 'met6', name: 'Platinum Luster', colors: ['#E0E0E0', '#E8E8E8', '#F0F0F0', '#F8F8F8', '#FFFFFF'], categories: ['metallic', 'white'], tags: ['lustrous', 'cool'] },
-  { id: 'met7', name: 'Chrome Shine', colors: ['#C0C0C0', '#D8D8D8', '#E8E8E8', '#F0F0F0', '#FAFAFA'], categories: ['metallic', 'grey'], tags: ['reflective', 'sleek'] },
-  { id: 'met8', name: 'Brass Trumpet', colors: ['#D4AF37', '#D9B549', '#DEBF5C', '#E3C86D', '#E8D17F'], categories: ['metallic', 'yellow'], tags: ['warm', 'glowing'] },
-  { id: 'met9', name: 'Titanium', colors: ['#CCCCCC', '#BBBBBB', '#AAAAAA', '#999999', '#888888'], categories: ['metallic', 'grey'], tags: ['strong', 'cool'] },
-  { id: 'met10', name: 'Gold Dust', colors: ['#FFE66D', '#FFF200', '#FFDA03', '#E6B800', '#CCAD00'], categories: ['metallic', 'yellow'], tags: ['bright', 'shiny'] },
-  { id: 'met11', name: 'Silver Silk', colors: ['#F0F0F0', '#E0E0E0', '#D0D0D0', '#C0C0C0', '#B0B0B0'], categories: ['metallic', 'white'], tags: ['smooth', 'elegant'] },
-  { id: 'met12', name: 'Bronze Shield', colors: ['#A86D3B', '#B87A45', '#C8874F', '#D89459', '#E8A163'], categories: ['metallic', 'orange'], tags: ['warm', 'strong'] },
-  { id: 'met13', name: 'Gold Plated', colors: ['#E6B800', '#F0C414', '#F0D010', '#FFD700', '#FFED4E'], categories: ['metallic', 'yellow'], tags: ['elegant', 'precious'] },
-  { id: 'met14', name: 'Silver Frost', colors: ['#D8D8D8', '#E0E0E0', '#E8E8E8', '#F0F0F0', '#F8F8F8'], categories: ['metallic', 'white'], tags: ['cool', 'icy'] },
-  { id: 'met15', name: 'Copper Penny', colors: ['#A0541D', '#B5673A', '#CA7A57', '#DF8D74', '#F4A091'], categories: ['metallic', 'brown'], tags: ['warm', 'earthy'] },
-  { id: 'met16', name: 'Gunmetal Grey', colors: ['#2C3E50', '#3C5170', '#4C6590', '#5C79B0', '#6C8DD0'], categories: ['metallic', 'grey'], tags: ['cool', 'strong'] },
-  { id: 'met17', name: 'Champagne Gold', colors: ['#F0D010', '#F5D842', '#F9E054', '#FDE866', '#FFEC9A'], categories: ['metallic', 'yellow'], tags: ['luxurious', 'warm'] },
-  { id: 'met18', name: 'Pearl White', colors: ['#FAFAFA', '#F5F5F5', '#F0F0F0', '#EBEBEB', '#E0E0E0'], categories: ['metallic', 'white'], tags: ['lustrous', 'clean'] },
-  { id: 'met19', name: 'Antique Gold', colors: ['#C9A961', '#D4B570', '#DFBE7F', '#EAC78E', '#F5D59D'], categories: ['metallic', 'brown'], tags: ['vintage', 'warm'] },
-  { id: 'met20', name: 'Quicksilver', colors: ['#A8A9AD', '#B8BABD', '#C8CBCD', '#D8DCDD', '#E8ECED'], categories: ['metallic', 'grey'], tags: ['smooth', 'cool'] },
-  { id: 'met21', name: 'Gold Rush', colors: ['#FFD700', '#FFE133', '#FFEB66', '#FFF500', '#FFFD99'], categories: ['metallic', 'yellow'], tags: ['bright', 'warm'] },
-  { id: 'met22', name: 'Steel Silver', colors: ['#C0C0C0', '#D0D0D0', '#D8D8D8', '#E0E0E0', '#E8E8E8'], categories: ['metallic', 'grey'], tags: ['strong', 'cool'] },
-  { id: 'met23', name: 'Bronze Glow', colors: ['#B87333', '#C4845F', '#D0958B', '#DCA6B7', '#E8B7E3'], categories: ['metallic', 'brown'], tags: ['warm', 'glowing'] },
-  { id: 'met24', name: 'Rose Metal', colors: ['#CD7F32', '#D99B52', '#E5B772', '#F1D392', '#FDEFB2'], categories: ['metallic', 'pink'], tags: ['warm', 'elegant'] },
-  { id: 'met25', name: 'Polished Steel', colors: ['#E8E8E8', '#D8D8D8', '#C8C8C8', '#B8B8B8', '#A8A8A8'], categories: ['metallic', 'grey'], tags: ['reflective', 'cool'] },
-  { id: 'met26', name: 'Gold Coin', colors: ['#C9A961', '#DAB747', '#E8C52D', '#F5D313', '#FFED4E'], categories: ['metallic', 'yellow'], tags: ['precious', 'warm'] },
-  { id: 'met27', name: 'Silver Moon', colors: ['#E0E0E0', '#E8E8E8', '#F0F0F0', '#F8F8F8', '#FFFFFF'], categories: ['metallic', 'white'], tags: ['cool', 'elegant'] },
-  { id: 'met28', name: 'Bronze Medal', colors: ['#A86D3B', '#B88450', '#C89B65', '#D8B27A', '#E8C98F'], categories: ['metallic', 'orange'], tags: ['warm', 'achievement'] },
-  { id: 'met29', name: 'Precious Gold', colors: ['#FFD700', '#F5D033', '#E8C920', '#D4AF37', '#C9A000'], categories: ['metallic', 'yellow'], tags: ['luxurious', 'precious'] },
-  { id: 'met30', name: 'Mirror Shine', colors: ['#F5F5F5', '#E8E8E8', '#D0D0D0', '#B8B8B8', '#A0A0A0'], categories: ['metallic', 'grey'], tags: ['reflective', 'shiny'] },
-  { id: 'met31', name: 'Copper Wire', colors: ['#B87333', '#C8854D', '#D89767', '#E8A981', '#F8BB9B'], categories: ['metallic', 'orange'], tags: ['warm', 'conductive'] },
-  { id: 'met32', name: 'Silvery Blue', colors: ['#B8C5D6', '#C8D1DC', '#D8DDE2', '#E8E9E8', '#F8F5EE'], categories: ['metallic', 'blue'], tags: ['cool', 'elegant'] },
-  { id: 'met33', name: 'Golden Hour', colors: ['#FFD700', '#FFC700', '#FFB700', '#FFA700', '#FF9700'], categories: ['metallic', 'yellow'], tags: ['warm', 'luminous'] },
-  { id: 'met34', name: 'Metallic Grey', colors: ['#A0A0A0', '#B0B0B0', '#C0C0C0', '#D0D0D0', '#E0E0E0'], categories: ['metallic', 'grey'], tags: ['neutral', 'solid'] },
-  { id: 'met35', name: 'Bronze Mirror', colors: ['#8B4513', '#A0522D', '#B56B47', '#CA8461', '#DF9D7B'], categories: ['metallic', 'brown'], tags: ['warm', 'reflective'] },
-  { id: 'met36', name: 'Rose Matte', colors: ['#D9919F', '#E09FA7', '#E7ADAF', '#EEBBB7', '#F5C9BF'], categories: ['metallic', 'pink'], tags: ['soft', 'matte'] },
-  { id: 'met37', name: 'Shiny Platinum', colors: ['#E0E0E0', '#E8E8E8', '#F0F0F0', '#F8F8F8', '#FFFFFF'], categories: ['metallic', 'white'], tags: ['shiny', 'cool'] },
-  { id: 'met38', name: 'Rustic Gold', colors: ['#B8860B', '#C99D1A', '#DAB429', '#EBCB38', '#FCE247'], categories: ['metallic', 'yellow'], tags: ['vintage', 'warm'] },
-  { id: 'met39', name: 'Chrome Gold', colors: ['#D4AF37', '#DDB84D', '#E6C163', '#EFCA79', '#F8D38F'], categories: ['metallic', 'yellow'], tags: ['sleek', 'warm'] },
-  { id: 'met40', name: 'Titanium Silver', colors: ['#C0C0C0', '#D0D0D0', '#D8D8D8', '#E0E0E0', '#E8E8E8'], categories: ['metallic', 'grey'], tags: ['strong', 'cool'] },
-  { id: 'met41', name: 'Bronze Shimmer', colors: ['#C87F3D', '#D48E50', '#E09D63', '#ECAC76', '#F8BB89'], categories: ['metallic', 'orange'], tags: ['warm', 'shimmery'] },
-  { id: 'met42', name: 'Silver Shine', colors: ['#E8E8E8', '#D8D8D8', '#C8C8C8', '#B8B8B8', '#A8A8A8'], categories: ['metallic', 'grey'], tags: ['shiny', 'reflective'] },
-  { id: 'met43', name: 'Gilded Gold', colors: ['#FFD700', '#F5D842', '#EACB5C', '#DFBE76', '#D4AF90'], categories: ['metallic', 'yellow'], tags: ['precious', 'elegant'] },
-  { id: 'met44', name: 'Platinum Pearl', colors: ['#F0F0F0', '#E8E8E8', '#E0E0E0', '#D8D8D8', '#D0D0D0'], categories: ['metallic', 'white'], tags: ['lustrous', 'elegant'] },
-  { id: 'met45', name: 'Copper Sheen', colors: ['#B87333', '#C48749', '#D09B5F', '#DCAF75', '#E8C38B'], categories: ['metallic', 'orange'], tags: ['warm', 'shiny'] },
-  { id: 'met46', name: 'Rose Shimmer', colors: ['#C9657F', '#D27A8F', '#DB8D9F', '#E4A0AF', '#EDB3BF'], categories: ['metallic', 'pink'], tags: ['warm', 'shimmery'] },
-  { id: 'met47', name: 'Brushed Silver', colors: ['#D0D0D0', '#D8D8D8', '#E0E0E0', '#E8E8E8', '#F0F0F0'], categories: ['metallic', 'grey'], tags: ['matte', 'cool'] },
-  { id: 'met48', name: 'Gold Gradient', colors: ['#FFD700', '#F0C814', '#E0A328', '#D09E3C', '#C09850'], categories: ['metallic', 'yellow'], tags: ['gradient', 'warm'] },
-  { id: 'met49', name: 'Polished Gold', colors: ['#E6B800', '#F0C414', '#FACA1D', '#FFD700', '#FFED4E'], categories: ['metallic', 'yellow'], tags: ['polished', 'bright'] },
-  { id: 'met50', name: 'Silver Luster', colors: ['#E8E8E8', '#D0D0D0', '#B8B8B8', '#A0A0A0', '#888888'], categories: ['metallic', 'grey'], tags: ['lustrous', 'cool'] },
+      colors.push(hsvToHex(h, s, v));
+    }
 
-  // Neon (56 palettes)
-  { id: 'neo1', name: 'Cyberpunk Pink', colors: ['#FF006E', '#FF1A7A', '#FF3386', '#FF4D92', '#FF679E'], categories: ['neon', 'pink'], tags: ['electric', 'vibrant'] },
-  { id: 'neo2', name: 'Neon Green', colors: ['#00FF00', '#22FF22', '#44FF44', '#66FF66', '#88FF88'], categories: ['neon', 'green'], tags: ['electric', 'bright'] },
-  { id: 'neo3', name: 'Electric Blue', colors: ['#0099FF', '#00B4D8', '#00D4FF', '#00E5FF', '#00F5FF'], categories: ['neon', 'blue'], tags: ['electric', 'bright'] },
-  { id: 'neo4', name: 'Radioactive Yellow', colors: ['#FFFF00', '#FFFF33', '#FFFF66', '#FFFF99', '#FFFFCC'], categories: ['neon', 'yellow'], tags: ['electric', 'bright'] },
-  { id: 'neo5', name: 'Neon Orange', colors: ['#FF6600', '#FF7722', '#FF8844', '#FF9966', '#FFAA88'], categories: ['neon', 'orange'], tags: ['electric', 'bright'] },
-  { id: 'neo6', name: 'Hot Magenta', colors: ['#FF00FF', '#FF1FFF', '#FF3FFF', '#FF5FFF', '#FF7FFF'], categories: ['neon', 'pink'], tags: ['electric', 'intense'] },
-  { id: 'neo7', name: 'Neon Cyan', colors: ['#00FFFF', '#00FFE5', '#00FFCC', '#00FFB3', '#00FF9A'], categories: ['neon', 'blue'], tags: ['electric', 'cool'] },
-  { id: 'neo8', name: 'Acid Green', colors: ['#CCFF00', '#DDFF00', '#EEFF00', '#FFFF00', '#FFDD00'], categories: ['neon', 'green'], tags: ['electric', 'intense'] },
-  { id: 'neo9', name: 'Neon Purple', colors: ['#8B00FF', '#9933FF', '#AA66FF', '#BB99FF', '#CCCCFF'], categories: ['neon', 'purple'], tags: ['electric', 'vibrant'] },
-  { id: 'neo10', name: 'Neon Red', colors: ['#FF0000', '#FF1111', '#FF2222', '#FF3333', '#FF4444'], categories: ['neon', 'red'], tags: ['electric', 'intense'] },
-  { id: 'neo11', name: 'Laser Lime', colors: ['#00FF00', '#11FF11', '#22FF22', '#33FF33', '#44FF44'], categories: ['neon', 'green'], tags: ['electric', 'bright'] },
-  { id: 'neo12', name: 'Electric Violet', colors: ['#9933FF', '#AA44FF', '#BB55FF', '#CC66FF', '#DD77FF'], categories: ['neon', 'purple'], tags: ['electric', 'bright'] },
-  { id: 'neo13', name: 'Neon Aqua', colors: ['#00FFDD', '#00FFCC', '#00FFBB', '#00FFAA', '#00FF99'], categories: ['neon', 'blue'], tags: ['electric', 'cool'] },
-  { id: 'neo14', name: 'Glow Stick Pink', colors: ['#FF0080', '#FF1A95', '#FF33AA', '#FF4DBF', '#FF66D4'], categories: ['neon', 'pink'], tags: ['glowing', 'vibrant'] },
-  { id: 'neo15', name: 'Neon White', colors: ['#FFFFFF', '#FFFF99', '#FFFF33', '#FFFFFF', '#FFFACD'], categories: ['neon', 'white'], tags: ['bright', 'glowing'] },
-  { id: 'neo16', name: 'Plasma Orange', colors: ['#FF5500', '#FF6600', '#FF7700', '#FF8800', '#FF9900'], categories: ['neon', 'orange'], tags: ['electric', 'hot'] },
-  { id: 'neo17', name: 'Neon Teal', colors: ['#00FFAA', '#00FFBB', '#00FFCC', '#00FFDD', '#00FFEE'], categories: ['neon', 'green'], tags: ['electric', 'cool'] },
-  { id: 'neo18', name: 'Electric Rose', colors: ['#FF0066', '#FF1177', '#FF2288', '#FF3399', '#FF44AA'], categories: ['neon', 'pink'], tags: ['electric', 'vibrant'] },
-  { id: 'neo19', name: 'Neon Lime Green', colors: ['#CCFF00', '#DDFF22', '#EEFF44', '#FFFF66', '#FFFF88'], categories: ['neon', 'green'], tags: ['electric', 'intense'] },
-  { id: 'neo20', name: 'Neon Sky Blue', colors: ['#0099FF', '#00AAFF', '#00BBFF', '#00CCFF', '#00DDFF'], categories: ['neon', 'blue'], tags: ['electric', 'bright'] },
-  { id: 'neo21', name: 'Neon Bubble', colors: ['#FF1493', '#FF2BA4', '#FF3DB5', '#FF4FC6', '#FF61D7'], categories: ['neon', 'pink'], tags: ['electric', 'playful'] },
-  { id: 'neo22', name: 'Neon Sunset', colors: ['#FF6600', '#FF7700', '#FF8800', '#FF9900', '#FFAA00'], categories: ['neon', 'orange'], tags: ['electric', 'warm'] },
-  { id: 'neo23', name: 'Neon Mint', colors: ['#00FF99', '#11FFAA', '#22FFBB', '#33FFCC', '#44FFDD'], categories: ['neon', 'green'], tags: ['electric', 'cool'] },
-  { id: 'neo24', name: 'Neon Lavender', colors: ['#DD77FF', '#DD88FF', '#DD99FF', '#DDAAFF', '#DDBBFF'], categories: ['neon', 'purple'], tags: ['electric', 'soft'] },
-  { id: 'neo25', name: 'Neon Gold', colors: ['#FFFF00', '#FFED4E', '#FFE066', '#FFD700', '#FFCF00'], categories: ['neon', 'yellow'], tags: ['electric', 'bright'] },
-  { id: 'neo26', name: 'Neon Coral', colors: ['#FF7F50', '#FF8866', '#FF9177', '#FFA088', '#FFB099'], categories: ['neon', 'orange'], tags: ['electric', 'vibrant'] },
-  { id: 'neo27', name: 'Electric Turquoise', colors: ['#00CCCC', '#00DDDD', '#00EEEE', '#00FFFF', '#33FFFF'], categories: ['neon', 'blue'], tags: ['electric', 'bright'] },
-  { id: 'neo28', name: 'Neon Berry', colors: ['#FF0099', '#FF1AAA', '#FF33BB', '#FF4DCC', '#FF66DD'], categories: ['neon', 'pink'], tags: ['electric', 'sweet'] },
-  { id: 'neo29', name: 'Neon Spark', colors: ['#FFFF00', '#FFFF22', '#FFFF44', '#FFFF66', '#FFFF88'], categories: ['neon', 'yellow'], tags: ['electric', 'bright'] },
-  { id: 'neo30', name: 'Neon Pulse', colors: ['#FF00FF', '#FF22FF', '#FF44FF', '#FF66FF', '#FF88FF'], categories: ['neon', 'pink'], tags: ['electric', 'pulsing'] },
-  { id: 'neo31', name: 'Neon Flash', colors: ['#00FFFF', '#00FFDD', '#00FFBB', '#00FF99', '#00FF77'], categories: ['neon', 'green'], tags: ['electric', 'bright'] },
-  { id: 'neo32', name: 'Neon Storm', colors: ['#0099FF', '#1188FF', '#2277FF', '#3366FF', '#4455FF'], categories: ['neon', 'blue'], tags: ['electric', 'intense'] },
-  { id: 'neo33', name: 'Neon Peach', colors: ['#FF9955', '#FFAA66', '#FFBB77', '#FFCC88', '#FFDD99'], categories: ['neon', 'orange'], tags: ['electric', 'warm'] },
-  { id: 'neo34', name: 'Neon Violet', colors: ['#9900FF', '#AA11FF', '#BB22FF', '#CC33FF', '#DD44FF'], categories: ['neon', 'purple'], tags: ['electric', 'vibrant'] },
-  { id: 'neo35', name: 'Neon Zest', colors: ['#FFFF00', '#FFFFAA', '#FFFF99', '#FFFF77', '#FFFF55'], categories: ['neon', 'yellow'], tags: ['electric', 'zesty'] },
-  { id: 'neo36', name: 'Neon Dream', colors: ['#FF0066', '#FF00AA', '#FF00EE', '#BB00FF', '#7700FF'], categories: ['neon', 'pink'], tags: ['electric', 'dreamy'] },
-  { id: 'neo37', name: 'Neon Surge', colors: ['#00FFFF', '#00FFEE', '#00FFDD', '#00FFCC', '#00FFBB'], categories: ['neon', 'blue'], tags: ['electric', 'powerful'] },
-  { id: 'neo38', name: 'Neon Blaze', colors: ['#FF5500', '#FF7700', '#FF9900', '#FFBB00', '#FFDD00'], categories: ['neon', 'orange'], tags: ['electric', 'hot'] },
-  { id: 'neo39', name: 'Neon Leaf', colors: ['#00FF00', '#44FF44', '#88FF88', '#AAFF99', '#CCFFAA'], categories: ['neon', 'green'], tags: ['electric', 'fresh'] },
-  { id: 'neo40', name: 'Neon Wave', colors: ['#00AAFF', '#00BBFF', '#00CCFF', '#00DDFF', '#00EEFF'], categories: ['neon', 'blue'], tags: ['electric', 'flowing'] },
-  { id: 'neo41', name: 'Neon Burst', colors: ['#FF0055', '#FF0099', '#FF00DD', '#CC00FF', '#8800FF'], categories: ['neon', 'pink'], tags: ['electric', 'explosive'] },
-  { id: 'neo42', name: 'Neon Amber', colors: ['#FFB300', '#FFCC00', '#FFDD00', '#FFEE00', '#FFFF00'], categories: ['neon', 'yellow'], tags: ['electric', 'warm'] },
-  { id: 'neo43', name: 'Neon Chaser', colors: ['#00FFAA', '#00FFCC', '#00FFEE', '#00FFFF', '#00EEFF'], categories: ['neon', 'green'], tags: ['electric', 'chasing'] },
-  { id: 'neo44', name: 'Neon Strobe', colors: ['#0099FF', '#00CCFF', '#00FFFF', '#CCFFFF', '#FFFFFF'], categories: ['neon', 'blue'], tags: ['electric', 'flashing'] },
-  { id: 'neo45', name: 'Neon Flame', colors: ['#FF3300', '#FF5500', '#FF7700', '#FF9900', '#FFBB00'], categories: ['neon', 'orange'], tags: ['electric', 'hot'] },
-  { id: 'neo46', name: 'Neon Echo', colors: ['#FF00FF', '#FF00DD', '#FF00BB', '#FF0099', '#FF0077'], categories: ['neon', 'pink'], tags: ['electric', 'echoing'] },
-  { id: 'neo47', name: 'Neon Rush', colors: ['#00FF99', '#00FFAA', '#00FFBB', '#00FFCC', '#00FFDD'], categories: ['neon', 'green'], tags: ['electric', 'fast'] },
-  { id: 'neo48', name: 'Neon Void', colors: ['#0055FF', '#0077FF', '#0099FF', '#00BBFF', '#00DDFF'], categories: ['neon', 'blue'], tags: ['electric', 'mysterious'] },
-  { id: 'neo49', name: 'Neon Rip', colors: ['#FF6600', '#FF8800', '#FFAA00', '#FFCC00', '#FFEE00'], categories: ['neon', 'orange'], tags: ['electric', 'tearing'] },
-  { id: 'neo50', name: 'Neon Haze', colors: ['#FF00CC', '#FF00EE', '#CC00FF', '#9900FF', '#6600FF'], categories: ['neon', 'purple'], tags: ['electric', 'hazy'] },
-  { id: 'neo51', name: 'Neon Vibes', colors: ['#FF00FF', '#FF00DD', '#FF00BB', '#FF0099', '#FF0077'], categories: ['neon', 'purple'], tags: ['electric', 'groovy'] },
-  { id: 'neo52', name: 'Neon Glow', colors: ['#00FFFF', '#00FFEE', '#00FFDD', '#00FFCC', '#00FFBB'], categories: ['neon', 'blue'], tags: ['electric', 'glowing'] },
-  { id: 'neo53', name: 'Neon Spark Bright', colors: ['#FFFF00', '#FFFF33', '#FFFF66', '#FFFF99', '#FFFFCC'], categories: ['neon', 'yellow'], tags: ['electric', 'sparkling'] },
-  { id: 'neo54', name: 'Neon Pulse Beat', colors: ['#FF0066', '#FF0099', '#FF00CC', '#CC00FF', '#9900FF'], categories: ['neon', 'pink'], tags: ['electric', 'rhythmic'] },
-  { id: 'neo55', name: 'Neon Laser Bright', colors: ['#00FF00', '#33FF33', '#66FF66', '#99FF99', '#CCFFCC'], categories: ['neon', 'green'], tags: ['electric', 'intense'] },
-  { id: 'neo56', name: 'Neon Electric Storm', colors: ['#0099FF', '#00BBFF', '#00DDFF', '#00FFFF', '#33FFFF'], categories: ['neon', 'blue'], tags: ['electric', 'powerful'] },
-];
+    // Generate name
+    const prefix = config.namePrefixes[Math.floor(r4 * config.namePrefixes.length)];
+    const suffix = config.nameSuffixes[Math.floor(r5 * config.nameSuffixes.length)];
+    const name = `${prefix} ${suffix}`;
+
+    const categories: ColorCategory[] = [category];
+    if (config.secondaryCategory && r1 > 0.5) {
+      categories.push(config.secondaryCategory);
+    }
+
+    palettes.push({
+      id: `${category.slice(0, 3)}${i + 1}`,
+      name,
+      colors,
+      categories,
+      tags: [prefix.toLowerCase(), suffix.toLowerCase(), category],
+    });
+  }
+
+  return palettes;
+}
+
+// Generate all palettes lazily - 500 per category
+let _allPalettesCache: Palette[] | null = null;
+
+export function getAllPalettes(): Palette[] {
+  if (!_allPalettesCache) {
+    _allPalettesCache = PALETTE_CATEGORIES.flatMap(cat =>
+      generateCategoryPalettes(cat.id, 500)
+    );
+  }
+  return _allPalettesCache;
+}
+
+export function getPalettesByCategory(category: ColorCategory): Palette[] {
+  return generateCategoryPalettes(category, 500);
+}
+
+// Keep backward compatibility - PALETTES still available but lazy
+export const PALETTES: Palette[] = []; // Replaced by getAllPalettes()
+
+// Override the search utility to use the generator
+export function searchPalettes(query: string, category: ColorCategory | null): Palette[] {
+  const source = category ? getPalettesByCategory(category) : getAllPalettes();
+  if (!query.trim()) return source;
+  const q = query.toLowerCase().trim();
+  return source.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.tags.some(t => t.toLowerCase().includes(q)) ||
+    p.categories.some(c => c.toLowerCase().includes(q)) ||
+    p.colors.some(c => c.toLowerCase().includes(q))
+  );
+}
