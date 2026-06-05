@@ -29,7 +29,7 @@ If this tool has been useful for your projects, you can support its ad-free main
 
 ---
 
-## 🇲🇽 Versión en Español
+## Versión en Español
 
 ¡Bienvenido a **LuxPalette**, una herramienta web premium y de código abierto diseñada especialmente para diseñadores, programadores independientes y creadores de contenido! Esta aplicación te permite explorar el círculo cromático, calcular armonías en modo tríada y navegar de forma instantánea por una biblioteca masiva de 500 paletas de colores divididas por categorías.
 
