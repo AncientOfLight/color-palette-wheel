@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/js-plugin-react'; 
+import react from '@vitejs/plugin-react';
 
+// https://vitejs.dev
 export default defineConfig({
-  base: '/luxpalette/', 
+  base: '/luxpalette/', // <-- ¡ESTO LE DICE A GITHUB DÓNDE ESTÁ TU DISEÑO OSCURO!
+  plugins: [react()],
 });
