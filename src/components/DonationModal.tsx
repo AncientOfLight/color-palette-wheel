@@ -10,6 +10,11 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
   if (!isOpen) return null;
 
+  // Función segura de JavaScript para abrir la pasarela sin bloqueos de servidor
+  const handlePaymentRedirect = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -46,12 +51,10 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
         </div>
 
         <div className="space-y-3">
-          {/* Botón de PayPal */}
-          <a
-            href="https://paypal.me/omniumcore"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 hover:from-amber-500/20 hover:to-yellow-500/20 transition-all duration-200 group"
+          {/* Botón de PayPal Seguro */}
+          <button
+            onClick={() => handlePaymentRedirect('https://paypal.me')}
+            className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 hover:from-amber-500/20 hover:to-yellow-500/20 transition-all duration-200 group text-left"
           >
             <div className="w-9 h-9 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0">
               <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -67,18 +70,16 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
             <svg className="w-4 h-4 text-amber-400/50 group-hover:text-amber-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-          </a>
+          </button>
 
-          {/* Botón de Mercado Pago */}
-          <a
-            href="https://mpago.li"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border border-sky-500/30 bg-gradient-to-r from-sky-500/10 to-blue-500/10 hover:from-sky-500/20 hover:to-blue-500/20 transition-all duration-200 group"
+          {/* Botón de Mercado Pago Seguro */}
+          <button
+            onClick={() => handlePaymentRedirect('https://mpago.li')}
+            className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border border-sky-500/30 bg-gradient-to-r from-sky-500/10 to-blue-500/10 hover:from-sky-500/20 hover:to-blue-500/20 transition-all duration-200 group text-left"
           >
             <div className="w-9 h-9 rounded-lg bg-sky-500/20 flex items-center justify-center shrink-0">
               <svg className="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2 2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>
             <div className="flex-1 min-w-0">
@@ -90,7 +91,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
             <svg className="w-4 h-4 text-sky-400/50 group-hover:text-sky-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-          </a>
+          </button>
         </div>
 
         <p className="text-xs text-gray-500 text-center mt-5">
