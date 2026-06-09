@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main ]
 
+# Permisos máximos requeridos por GitHub Actions para desplegar Pages
 permissions:
   contents: write
   pages: write
@@ -26,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Cambiado a v20 para asegurar compatibilidad con npm run build
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -34,6 +35,17 @@ jobs:
       - name: Build application
         run: npm run build
 
+      # Este paso evita que el flujo falle si tu compilación usa otra carpeta (ej. 'build' o 'out')
+      - name: Ensure build folder exists
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Error: La carpeta 'dist' no existe tras el build."
+            echo "Verificando si se generó otra carpeta..."
+            ls -la
+            exit 1
+          fi
+
+      # Forzar la configuración interna del entorno seguro de GitHub
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
