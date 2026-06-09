@@ -19,8 +19,8 @@ import DonationModal from './components/DonationModal';
 import LanguageToggle from './components/LanguageToggle';
 import { useLang } from './i18n/LanguageContext';
 import { CATEGORY_KEY_MAP } from './i18n/translations';
-import { generatePalettes } from './data/palettes'; // <-- ¡ESTA ES LA LLAVE DE LOS COLORES!
-import { type ColorCategory } from './data/palettes';
+import { generatePalettes } from './data/palettes';
+import { type ColorCategory, type ColorPalette } from './data/palettes'; // <-- ¡Tipo oficial agregado para seguridad!
 import { hsvToRgb, rgbToHex, hexToHsv, rgbToHsv } from './utils/color';
 
 const PAGE_SIZE = 60;
@@ -65,26 +65,22 @@ export default function App() {
 
   const activeCategory = selectedCategory || 'all';
 
-  // Motor de Mezcla Sembrada Intercalada (Round-Robin Fijo Inmune)
+  // Motor de Mezcla Sembrada Intercalada (Estricta Inmune sin variables sueltas)
   const allPalettes = useMemo(() => {
-    // Si es una pestaña normal, cargamos solo sus 500 paletas originales
     if (selectedCategory && activeCategory !== 'all') {
       return generatePalettes(activeCategory, 500);
     }
 
-    // Si es la pestaña "Todos", jalamos las categorías y las intercalamos de forma FIJA
     const categories: ColorCategory[] = ['pastel', 'neon', 'dark', 'metallic'];
     const blocks = categories.map(cat => generatePalettes(cat, 500));
-    const interleaved: any[] = [];
+    const interleaved: ColorPalette[] = []; // <-- ¡Cambiado any[] por ColorPalette[] para complacer a TypeScript!
 
-    // Intercalamos una de cada una para que no se amontone un solo color al inicio
     for (let i = 0; i < 500; i++) {
       blocks.forEach(block => {
         if (block[i]) interleaved.push(block[i]);
       });
     }
 
-    // Desordenamos la lista usando una fórmula matemática fija (Semilla inmune a cambios)
     for (let i = interleaved.length - 1; i > 0; i--) {
       const j = Math.floor(((i * 9301 + 49297) % 233280) / 233280 * (i + 1));
       const temp = interleaved[i];
@@ -230,3 +226,10 @@ export default function App() {
                   {triadColors.map((c, idx) => (
                     <div key={idx} className="flex flex-col gap-1">
                       <div className="h-8 rounded-lg shadow-inner" style={{ backgroundColor: c }} />
+                      <span className="text-[10px] text-center font-mono text-gray-500">{c}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
