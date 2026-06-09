@@ -19,7 +19,7 @@ import DonationModal from './components/DonationModal';
 import LanguageToggle from './components/LanguageToggle';
 import { useLang } from './i18n/LanguageContext';
 import { CATEGORY_KEY_MAP } from './i18n/translations';
-import { generatePalettes } from './data/palettes';
+import { generatePalettes, PALETTE_CATEGORIES } from './data/palettes';
 import { type ColorCategory } from './data/palettes';
 import { hsvToRgb, rgbToHex, hexToHsv, rgbToHsv } from './utils/color';
 
@@ -64,12 +64,31 @@ export default function App() {
     if (activeInput !== 'hsv') setHsvText(t2.hsv);
   }, [hue, saturation, brightness, activeInput]);
 
-  const activeCategory = selectedCategory || 'pastel';
+  const isAllCategories = selectedCategory === null;
 
-  const allPalettes = useMemo(
-    () => generatePalettes(activeCategory, 500),
-    [activeCategory]
-  );
+  const allPalettes = useMemo(() => {
+    if (isAllCategories) {
+      const catArrays = PALETTE_CATEGORIES.map(cat =>
+        generatePalettes(cat.id, 35)
+      );
+      const numCats = catArrays.length;
+      const maxLen = Math.max(...catArrays.map(a => a.length));
+      const interleaved: typeof catArrays[0] = [];
+      for (let i = 0; i < maxLen; i++) {
+        for (let c = 0; c < numCats; c++) {
+          if (i < catArrays[c].length) interleaved.push(catArrays[c][i]);
+        }
+      }
+      let seed = 4907;
+      const nextRand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+      for (let i = interleaved.length - 1; i > 0; i--) {
+        const j = Math.floor(nextRand() * (i + 1));
+        [interleaved[i], interleaved[j]] = [interleaved[j], interleaved[i]];
+      }
+      return interleaved;
+    }
+    return generatePalettes(selectedCategory!, 500);
+  }, [selectedCategory]);
 
   const filteredPalettes = useMemo(() => {
     if (!searchQuery.trim()) return allPalettes;
