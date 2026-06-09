@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
 
+# Permisos explícitos forzados en el código para evitar bloqueos de cuenta nueva
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
