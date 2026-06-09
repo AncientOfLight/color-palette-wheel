@@ -20,7 +20,7 @@ import LanguageToggle from './components/LanguageToggle';
 import { useLang } from './i18n/LanguageContext';
 import { CATEGORY_KEY_MAP } from './i18n/translations';
 import { generatePalettes } from './data/palettes';
-import { type ColorCategory, type ColorPalette } from './data/palettes';
+import { type ColorCategory, type ColorPalette } from './data/palettes'; // <-- ¡Tipo oficial importado con seguridad de Types!
 import { hsvToRgb, rgbToHex, hexToHsv, rgbToHsv } from './utils/color';
 
 const PAGE_SIZE = 60;
@@ -65,7 +65,7 @@ export default function App() {
 
   const activeCategory = selectedCategory || 'all';
 
-  // Motor de Mezcla Estática Intercalada Fija (Inmune a reinicios)
+  // Motor de Mezcla Estática Intercalada Fija (100% Inmune y Tipada)
   const allPalettes = useMemo(() => {
     if (selectedCategory && activeCategory !== 'all') {
       return generatePalettes(activeCategory, 500);
@@ -73,7 +73,7 @@ export default function App() {
 
     const categories: ColorCategory[] = ['pastel', 'neon', 'dark', 'metallic'];
     const blocks = categories.map(cat => generatePalettes(cat, 500));
-    const interleaved: ColorPalette[] = [];
+    const interleaved: ColorPalette[] = []; // <-- ¡Tipado estricto para complacer al robot de Actions!
 
     for (let i = 0; i < 500; i++) {
       blocks.forEach(block => {
@@ -176,18 +176,14 @@ export default function App() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-950" style={{ backgroundColor: '#0b131f' }}>
-      {/* Barra de Categorías Lateral Fija de tu Diseño */}
       <CategorySidebar selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} onCoffeeClick={() => setDonationOpen(true)} />
 
-      {/* Área Central Desplazable en una Sola Columna como tu Foto */}
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
-          {/* Selector de idioma */}
           <div className="flex justify-end">
             <LanguageToggle />
           </div>
 
-          {/* Encabezado LuxPalette */}
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2.5">
@@ -233,3 +229,4 @@ export default function App() {
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {triadColors.map((c, idx) => (
+                    <div key={idx} className="flex flex-col gap-1">
