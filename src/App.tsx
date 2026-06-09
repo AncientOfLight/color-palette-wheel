@@ -19,7 +19,7 @@ import DonationModal from './components/DonationModal';
 import LanguageToggle from './components/LanguageToggle';
 import { useLang } from './i18n/LanguageContext';
 import { CATEGORY_KEY_MAP } from './i18n/translations';
-import { generatePalettes, PALETTE_CATEGORIES } from './data/palettes';
+import { generatePalettes } from './data/palettes'; // <-- ¡ESTA ES LA LLAVE DE LOS COLORES!
 import { type ColorCategory } from './data/palettes';
 import { hsvToRgb, rgbToHex, hexToHsv, rgbToHsv } from './utils/color';
 
@@ -49,7 +49,6 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [donationOpen, setDonationOpen] = useState(false);
-
   const [activeInput, setActiveInput] = useState<string | null>(null);
 
   const init = hsvToTextState(0, 100, 100);
@@ -64,31 +63,37 @@ export default function App() {
     if (activeInput !== 'hsv') setHsvText(t2.hsv);
   }, [hue, saturation, brightness, activeInput]);
 
-  const isAllCategories = selectedCategory === null;
+  const activeCategory = selectedCategory || 'all';
 
+  // Motor de Mezcla Sembrada Intercalada (Round-Robin Fijo Inmune)
   const allPalettes = useMemo(() => {
-    if (isAllCategories) {
-      const catArrays = PALETTE_CATEGORIES.map(cat =>
-        generatePalettes(cat.id, 35)
-      );
-      const numCats = catArrays.length;
-      const maxLen = Math.max(...catArrays.map(a => a.length));
-      const interleaved: typeof catArrays[0] = [];
-      for (let i = 0; i < maxLen; i++) {
-        for (let c = 0; c < numCats; c++) {
-          if (i < catArrays[c].length) interleaved.push(catArrays[c][i]);
-        }
-      }
-      let seed = 4907;
-      const nextRand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-      for (let i = interleaved.length - 1; i > 0; i--) {
-        const j = Math.floor(nextRand() * (i + 1));
-        [interleaved[i], interleaved[j]] = [interleaved[j], interleaved[i]];
-      }
-      return interleaved;
+    // Si es una pestaña normal, cargamos solo sus 500 paletas originales
+    if (selectedCategory && activeCategory !== 'all') {
+      return generatePalettes(activeCategory, 500);
     }
-    return generatePalettes(selectedCategory!, 500);
-  }, [selectedCategory]);
+
+    // Si es la pestaña "Todos", jalamos las categorías y las intercalamos de forma FIJA
+    const categories: ColorCategory[] = ['pastel', 'neon', 'dark', 'metallic'];
+    const blocks = categories.map(cat => generatePalettes(cat, 500));
+    const interleaved: any[] = [];
+
+    // Intercalamos una de cada una para que no se amontone un solo color al inicio
+    for (let i = 0; i < 500; i++) {
+      blocks.forEach(block => {
+        if (block[i]) interleaved.push(block[i]);
+      });
+    }
+
+    // Desordenamos la lista usando una fórmula matemática fija (Semilla inmune a cambios)
+    for (let i = interleaved.length - 1; i > 0; i--) {
+      const j = Math.floor(((i * 9301 + 49297) % 233280) / 233280 * (i + 1));
+      const temp = interleaved[i];
+      interleaved[i] = interleaved[j];
+      interleaved[j] = temp;
+    }
+
+    return interleaved;
+  }, [activeCategory, selectedCategory]);
 
   const filteredPalettes = useMemo(() => {
     if (!searchQuery.trim()) return allPalettes;
@@ -171,27 +176,16 @@ export default function App() {
     setToastMessage(message);
   }, []);
 
-  const currentCategoryLabel = selectedCategory
-    ? t(CATEGORY_KEY_MAP[selectedCategory] ?? ('cat_pastel' as never))
-    : t('allCategories');
-
-  const inputCls = 'w-full bg-gray-800 border border-gray-700 text-gray-300 font-mono text-xs px-2 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent';
-  const hsvCls = 'w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-center';
-
-  const paletteWord = filteredPalettes.length !== 1 ? t('palettes') : t('palette_singular');
-
   return (
     <div className="flex h-screen overflow-hidden bg-gray-950" style={{ backgroundColor: '#0b131f' }}>
       <CategorySidebar selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} onCoffeeClick={() => setDonationOpen(true)} />
 
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-6xl mx-auto px-6 py-8">
-          {/* Language toggle */}
           <div className="flex justify-end mb-2">
             <LanguageToggle />
           </div>
 
-          {/* LuxPalette Brand Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
               <div className="flex items-center gap-2.5">
@@ -210,214 +204,29 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            {/* Color Wheel Section */}
             <div className="lg:col-span-1">
-              <div className="border border-gray-800 rounded-2xl p-6" style={{ backgroundColor: '#121e30' }}>
-                <h2 className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-5">
-                  {t('colorSelector')}
-                </h2>
-
-                {/* Mode Toggle */}
-                <div className="flex gap-1 mb-4 bg-gray-900 rounded-lg p-1">
-                  <button
-                    onClick={() => setTriadMode(false)}
-                    className={`flex-1 text-xs font-medium py-1.5 rounded-md transition-all ${
-                      !triadMode ? 'bg-sky-500/20 text-sky-300' : 'text-gray-400 hover:text-gray-200'
-                    }`}
+              <ColorWheelAdvanced 
+                hue={hue} 
+                saturation={saturation} 
+                brightness={brightness} 
+                triadMode={triadMode}
+                triadColors={triadColors}
+                onHueChange={handleWheelHueChange}
+                onSaturationChange={handleWheelSaturationChange}
+                onBrightnessChange={handleWheelBrightnessChange}
+              />
+              
+              <div className="mt-4 bg-gray-900/50 border border-gray-800 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-medium text-gray-400">{t('triadHarmony')}</span>
+                  <button 
+                    onClick={() => setTriadMode(!triadMode)}
+                    className={`text-xs px-2.5 py-1 rounded-md font-medium transition-colors ${triadMode ? 'bg-sky-500 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
                   >
-                    {t('singleColor')}
-                  </button>
-                  <button
-                    onClick={() => setTriadMode(true)}
-                    className={`flex-1 text-xs font-medium py-1.5 rounded-md transition-all ${
-                      triadMode ? 'bg-sky-500/20 text-sky-300' : 'text-gray-400 hover:text-gray-200'
-                    }`}
-                  >
-                    {t('triadColors')}
+                    {triadMode ? t('enabled') : t('disabled')}
                   </button>
                 </div>
-
-                <ColorWheelAdvanced
-                  hue={hue}
-                  brightness={brightness}
-                  saturation={saturation}
-                  triadMode={triadMode}
-                  onHueChange={handleWheelHueChange}
-                  onSaturationChange={handleWheelSaturationChange}
-                  onBrightnessChange={handleWheelBrightnessChange}
-                />
-
-                {/* Triad color previews */}
-                {triadMode && (
-                  <div className="mt-4 flex gap-2">
-                    {triadColors.map((color, i) => (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div className="w-full h-8 rounded-lg border border-gray-700" style={{ backgroundColor: color }} />
-                        <span className="text-xs font-mono text-gray-400">{color.toUpperCase()}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Info Panels */}
-            <div className="lg:col-span-2 space-y-4">
-              {/* Color Code */}
-              <div className="border border-gray-800 rounded-2xl p-6" style={{ backgroundColor: '#121e30' }}>
-                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-4">
-                  {t('colorCode')}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div
-                    className="h-24 rounded-xl shadow-lg border-2"
-                    style={{ backgroundColor: currentHex, borderColor: `${currentHex}40` }}
-                  />
-                  <div className="space-y-2">
-                    <div>
-                      <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">HEX</label>
-                      <input
-                        type="text"
-                        value={hexText}
-                        onChange={e => handleHexChange(e.target.value)}
-                        onFocus={() => setActiveInput('hex')}
-                        onBlur={() => { setActiveInput(null); handleHexBlur(); }}
-                        className="w-full bg-gray-800 border border-gray-700 text-sky-400 font-mono text-sm px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">RGB</label>
-                      <div className="flex gap-1.5">
-                        {(['r', 'g', 'b'] as RgbKey[]).map(ch => (
-                          <div key={ch} className="flex-1">
-                            <div className="flex items-center gap-1">
-                              <span className={`text-xs font-bold ${ch === 'r' ? 'text-red-400' : ch === 'g' ? 'text-green-400' : 'text-blue-400'}`}>
-                                {ch.toUpperCase()}
-                              </span>
-                              <input
-                                type="text"
-                                inputMode="numeric"
-                                value={rgbText[ch]}
-                                onChange={e => handleRgbChange(ch, e.target.value)}
-                                onFocus={() => setActiveInput('rgb')}
-                                onBlur={() => { setActiveInput(null); handleRgbBlur(ch); }}
-                                className={inputCls}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* HSV Values */}
-              <div className="border border-gray-800 rounded-2xl p-6" style={{ backgroundColor: '#121e30' }}>
-                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-4">
-                  {t('hsvValues')}
-                </h3>
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">{t('hue')} (H)</label>
-                    <div className="flex items-center gap-1">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={hsvText.h}
-                        onChange={e => handleHsvChange('h', e.target.value)}
-                        onFocus={() => setActiveInput('hsv')}
-                        onBlur={() => { setActiveInput(null); handleHsvBlur('h'); }}
-                        className={hsvCls}
-                      />
-                      <span className="text-xs text-gray-500">°</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">{t('saturation')} (S)</label>
-                    <div className="flex items-center gap-1">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={hsvText.s}
-                        onChange={e => handleHsvChange('s', e.target.value)}
-                        onFocus={() => setActiveInput('hsv')}
-                        onBlur={() => { setActiveInput(null); handleHsvBlur('s'); }}
-                        className={hsvCls}
-                      />
-                      <span className="text-xs text-gray-500">%</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-400 uppercase tracking-wider block mb-1">{t('value')} (V)</label>
-                    <div className="flex items-center gap-1">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={hsvText.v}
-                        onChange={e => handleHsvChange('v', e.target.value)}
-                        onFocus={() => setActiveInput('hsv')}
-                        onBlur={() => { setActiveInput(null); handleHsvBlur('v'); }}
-                        className={hsvCls}
-                      />
-                      <span className="text-xs text-gray-500">%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Search Bar */}
-          <div className="mb-6">
-            <SearchBar value={searchQuery} onChange={(q) => { setSearchQuery(q); setVisibleCount(PAGE_SIZE); }} />
-          </div>
-
-          {/* Grid Info */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-400">
-              {t('showing')} <span className="font-semibold text-sky-400">{displayedPalettes.length}</span> {t('of')}{' '}
-              <span className="font-semibold text-sky-400">{filteredPalettes.length}</span> {paletteWord}
-              {' ('}{filteredPalettes.length * 5} {t('colorsTotal')} {t('from')}{' '}
-              <span className="font-semibold text-sky-400">{currentCategoryLabel}</span>
-            </p>
-          </div>
-
-          {/* Palette Grid */}
-          {displayedPalettes.length > 0 ? (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
-                {displayedPalettes.map(palette => (
-                  <PaletteCard key={palette.id} palette={palette} onColorCopy={handleColorCopy} />
-                ))}
-              </div>
-              {hasMore && (
-                <div className="flex justify-center mb-12">
-                  <button
-                    onClick={() => setVisibleCount(prev => prev + PAGE_SIZE)}
-                    className="px-6 py-2.5 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-sm font-medium rounded-lg border border-sky-500/30 transition-all"
-                  >
-                    {t('loadMore')} ({filteredPalettes.length - visibleCount} {t('remaining')})
-                  </button>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center min-h-[300px] text-center">
-              <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-300 mb-2">{t('noPalettesFound')}</h3>
-              <p className="text-gray-500 max-w-md">{t('noPalettesHint')}</p>
-            </div>
-          )}
-        </div>
-      </main>
-
-      {toastMessage && <ToastNotification message={toastMessage} />}
-      <DonationModal isOpen={donationOpen} onClose={() => setDonationOpen(false)} />
-    </div>
-  );
-}
+                <div className="grid grid-cols-3 gap-2">
+                  {triadColors.map((c, idx) => (
+                    <div key={idx} className="flex flex-col gap-1">
+                      <div className="h-8 rounded-lg shadow-inner" style={{ backgroundColor: c }} />
