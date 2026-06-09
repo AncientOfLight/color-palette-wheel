@@ -18,7 +18,6 @@ import ToastNotification from './components/ToastNotification';
 import DonationModal from './components/DonationModal';
 import LanguageToggle from './components/LanguageToggle';
 import { useLang } from './i18n/LanguageContext';
-import { CATEGORY_KEY_MAP } from './i18n/translations';
 import { generatePalettes } from './data/palettes';
 import { type ColorCategory, type ColorPalette } from './data/palettes';
 import { hsvToRgb, rgbToHex, hexToHsv, rgbToHsv } from './utils/color';
@@ -65,7 +64,7 @@ export default function App() {
 
   const activeCategory = selectedCategory || 'all';
 
-  // Motor de Mezcla Estática Intercalada Fija (Inmune y Limpia de Warnings)
+  // Motor de Mezcla Estática Intercalada Fija (100% Inmune y Tipada)
   const allPalettes = useMemo(() => {
     if (selectedCategory && activeCategory !== 'all') {
       return generatePalettes(activeCategory, 500);
@@ -172,18 +171,18 @@ export default function App() {
     setToastMessage(message);
   }, []);
 
+  const paletteWord = filteredPalettes.length !== 1 ? t('palettes') : t('palette_singular');
+
   return (
     <div className="flex h-screen overflow-hidden bg-gray-950" style={{ backgroundColor: '#0b131f' }}>
       <CategorySidebar selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} onCoffeeClick={() => setDonationOpen(true)} />
 
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
-          {/* Selector de idioma */}
           <div className="flex justify-end">
             <LanguageToggle />
           </div>
 
-          {/* Encabezado LuxPalette */}
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2.5">
@@ -231,3 +230,5 @@ export default function App() {
                   {triadColors.map((c, idx) => (
                     <div key={idx} className="flex flex-col gap-1">
                       <div className="h-8 rounded-lg shadow-inner" style={{ backgroundColor: c }} />
+                      <span className="text-[10px] text-center font-mono text-gray-500">{c}</span>
+                    </div>
