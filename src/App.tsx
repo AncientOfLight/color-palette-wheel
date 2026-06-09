@@ -18,12 +18,10 @@ import ToastNotification from './components/ToastNotification';
 import DonationModal from './components/DonationModal';
 import LanguageToggle from './components/LanguageToggle';
 import { useLang } from './i18n/LanguageContext';
-import { generatePalettes } from './data/palettes';
-import { type ColorCategory, type ColorPalette } from './data/palettes';
+import { generatePalettes, type ColorCategory, type ColorPalette } from './data/palettes';
 import { hsvToRgb, rgbToHex, hexToHsv, rgbToHsv } from './utils/color';
 
 const PAGE_SIZE = 60;
-
 type RgbKey = 'r' | 'g' | 'b';
 type HsvKey = 'h' | 's' | 'v';
 
@@ -62,178 +60,88 @@ export default function App() {
     if (activeInput !== 'hsv') setHsvText(t2.hsv);
   }, [hue, saturation, brightness, activeInput]);
 
-  const activeCategory = selectedCategory || 'all';
-
   const allPalettes = useMemo(() => {
-    if (selectedCategory && activeCategory !== 'all') {
-      return generatePalettes(activeCategory, 500);
-    }
-
+    const activeCategory = selectedCategory || 'all';
+    if (selectedCategory && activeCategory !== 'all') return generatePalettes(activeCategory, 500);
     const categories: ColorCategory[] = ['pastel', 'neon', 'dark', 'metallic'];
     const blocks = categories.map(cat => generatePalettes(cat, 500));
     const interleaved: ColorPalette[] = [];
-
-    for (let i = 0; i < 500; i++) {
-      blocks.forEach(block => {
-        if (block[i]) interleaved.push(block[i]);
-      });
-    }
-
+    for (let i = 0; i < 500; i++) { blocks.forEach(block => { if (block[i]) interleaved.push(block[i]); }); }
     for (let i = interleaved.length - 1; i > 0; i--) {
       const j = Math.floor(((i * 9301 + 49297) % 233280) / 233280 * (i + 1));
-      const temp = interleaved[i];
-      interleaved[i] = interleaved[j];
-      interleaved[j] = temp;
+      const temp = interleaved[i]; interleaved[i] = interleaved[j]; interleaved[j] = temp;
     }
-
     return interleaved;
-  }, [activeCategory, selectedCategory]);
+  }, [selectedCategory]);
 
   const filteredPalettes = useMemo(() => {
     if (!searchQuery.trim()) return allPalettes;
     const q = searchQuery.toLowerCase().trim();
-    return allPalettes.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      p.tags.some(t2 => t2.toLowerCase().includes(q)) ||
-      p.colors.some(c => c.toLowerCase().includes(q))
-    );
+    return allPalettes.filter(p => p.name.toLowerCase().includes(q) || p.tags.some(t2 => t2.toLowerCase().includes(q)) || p.colors.some(c => c.toLowerCase().includes(q)));
   }, [allPalettes, searchQuery]);
-
-  const displayedPalettes = useMemo(
-    () => filteredPalettes.slice(0, visibleCount),
-    [filteredPalettes, visibleCount]
-  );
-
-  const hasMore = visibleCount < filteredPalettes.length;
 
   const currentRgb = hsvToRgb(hue, saturation, brightness);
   const currentHex = rgbToHex(currentRgb.r, currentRgb.g, currentRgb.b);
-
   const triadHues = triadMode ? [hue, (hue + 120) % 360, (hue + 240) % 360] : [hue];
-  const triadColors = triadHues.map(h => {
-    const rgb = hsvToRgb(h, saturation, brightness);
-    return rgbToHex(rgb.r, rgb.g, rgb.b);
-  });
+  const triadColors = triadHues.map(h => { const rgb = hsvToRgb(h, saturation, brightness); return rgbToHex(rgb.r, rgb.g, rgb.b); });
 
-  const handleHexChange = (value: string) => {
-    setHexText(value);
-    if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
-      const hsv = hexToHsv(value);
-      if (hsv) { setHue(hsv.h); setSaturation(hsv.s); setBrightness(hsv.v); }
-    }
-  };
-
-  const handleHexBlur = () => {
-    if (!/^#[0-9A-Fa-f]{6}$/.test(hexText)) setHexText(currentHex.toUpperCase());
-  };
-
-  const handleRgbChange = (ch: RgbKey, value: string) => {
-    setRgbText(prev => ({ ...prev, [ch]: value.replace(/[^0-9]/g, '') }));
-  };
-
+  const handleHexChange = (val: string) => { setHexText(val); if (/^#[0-9A-Fa-f]{6}$/.test(val)) { const hsv = hexToHsv(val); if (hsv) { setHue(hsv.h); setSaturation(hsv.s); setBrightness(hsv.v); } } };
+  const handleRgbChange = (ch: RgbKey, val: string) => { setRgbText(p => ({ ...p, [ch]: val.replace(/[^0-9]/g, '') })); };
   const handleRgbBlur = (ch: RgbKey) => {
-    const num = parseInt(rgbText[ch]) || 0;
-    const clamped = Math.max(0, Math.min(255, num));
-    setRgbText(prev => ({ ...prev, [ch]: String(clamped) }));
-    const r = ch === 'r' ? clamped : currentRgb.r;
-    const g = ch === 'g' ? clamped : currentRgb.g;
-    const b = ch === 'b' ? clamped : currentRgb.b;
-    const hsv = rgbToHsv(r, g, b);
-    setHue(hsv.h); setSaturation(hsv.s); setBrightness(hsv.v);
+    const num = Math.max(0, Math.min(255, parseInt(rgbText[ch]) || 0));
+    setRgbText(p => ({ ...p, [ch]: String(num) }));
+    const r = ch === 'r' ? num : currentRgb.r; const g = ch === 'g' ? num : currentRgb.g; const b = ch === 'b' ? num : currentRgb.b;
+    const hsv = rgbToHsv(r, g, b); setHue(hsv.h); setSaturation(hsv.s); setBrightness(hsv.v);
   };
-
-  const handleHsvChange = (ch: HsvKey, value: string) => {
-    setHsvText(prev => ({ ...prev, [ch]: value.replace(/[^0-9]/g, '') }));
-  };
-
+  const handleHsvChange = (ch: HsvKey, val: string) => { setHsvText(p => ({ ...p, [ch]: val.replace(/[^0-9]/g, '') })); };
   const handleHsvBlur = (ch: HsvKey) => {
-    const maxVal = ch === 'h' ? 360 : 100;
-    const num = parseInt(hsvText[ch]) || 0;
-    const clamped = Math.max(0, Math.min(maxVal, num));
-    setHsvText(prev => ({ ...prev, [ch]: String(clamped) }));
-    if (ch === 'h') setHue(clamped);
-    if (ch === 's') setSaturation(clamped);
-    if (ch === 'v') setBrightness(clamped);
+    const num = Math.max(0, Math.min(ch === 'h' ? 360 : 100, parseInt(hsvText[ch]) || 0));
+    setHsvText(p => ({ ...p, [ch]: String(num) }));
+    if (ch === 'h') setHue(num); if (ch === 's') setSaturation(num); if (ch === 'v') setBrightness(num);
   };
-
-  const handleWheelHueChange = useCallback((newHue: number) => setHue(newHue), []);
-  const handleWheelSaturationChange = useCallback((newSat: number) => setSaturation(newSat), []);
-  const handleWheelBrightnessChange = useCallback((newBri: number) => setBrightness(newBri), []);
-
-  const handleCategorySelect = useCallback((cat: ColorCategory | null) => {
-    setSelectedCategory(cat);
-    setVisibleCount(PAGE_SIZE);
-    setSearchQuery('');
-  }, []);
-
-  const handleColorCopy = useCallback((message: string) => {
-    setToastMessage(message);
-  }, []);
-
-  const paletteWord = filteredPalettes.length !== 1 ? t('palettes') : t('palette_singular');
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-950" style={{ backgroundColor: '#0b131f' }}>
-      <CategorySidebar selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} onCoffeeClick={() => setDonationOpen(true)} />
-
+      <CategorySidebar selectedCategory={selectedCategory} onSelectCategory={useCallback((cat) => { setSelectedCategory(cat); setVisibleCount(PAGE_SIZE); setSearchQuery(''); }, [])} onCoffeeClick={() => setDonationOpen(true)} />
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
-          <div className="flex justify-end">
-            <LanguageToggle />
-          </div>
-
+          <div className="flex justify-end"><LanguageToggle /></div>
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2.5">
-                <div className="flex gap-0.5">
-                  <span className="w-2 h-2 rounded-full bg-sky-400" />
-                  <span className="w-2 h-2 rounded-full bg-rose-400" />
-                  <span className="w-2 h-2 rounded-full bg-amber-400" />
-                </div>
-                <h1 className="text-2xl font-bold tracking-tight">
-                  <span className="text-white">Lux</span>
-                  <span className="bg-gradient-to-r from-sky-400 via-violet-400 to-rose-400 bg-clip-text text-transparent">Palette</span>
-                </h1>
+                <div className="flex gap-0.5"><span className="w-2 h-2 rounded-full bg-sky-400" /><span className="w-2 h-2 rounded-full bg-rose-400" /><span className="w-2 h-2 rounded-full bg-amber-400" /></div>
+                <h1 className="text-2xl font-bold tracking-tight"><span className="text-white">Lux</span><span className="bg-gradient-to-r from-sky-400 via-violet-400 to-rose-400 bg-clip-text text-transparent">Palette</span></h1>
               </div>
               <p className="text-xs text-gray-500 mt-1 tracking-wide">{t('tagline')}</p>
             </div>
-            
-            <div className="flex items-center gap-4">
-              <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            </div>
+            <div className="flex items-center gap-4"><SearchBar value={searchQuery} onChange={setSearchQuery} /></div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-900/40 p-6 rounded-2xl border border-gray-800/60 backdrop-blur-sm">
             <div className="flex flex-col justify-center items-center gap-3">
-              <ColorWheelAdvanced 
-                hue={hue} 
-                saturation={saturation} 
-                brightness={brightness}
-                triadMode={triadMode}
-                onHueChange={handleWheelHueChange}
-                onSaturationChange={handleWheelSaturationChange}
-                onBrightnessChange={handleWheelBrightnessChange}
-              />
-              <button 
-                onClick={() => setTriadMode(!triadMode)} 
-                className={`text-xs px-3 py-1 rounded-lg border font-medium transition-colors ${
-                  triadMode ? 'bg-sky-500/20 text-sky-400 border-sky-500/40' : 'bg-gray-950 text-gray-400 border-gray-800'
-                }`}
-              >
-                {triadMode ? 'Modo Tríada: Activo' : 'Activar Modo Tríada'}
-              </button>
+              <ColorWheelAdvanced hue={hue} saturation={saturation} brightness={brightness} triadMode={triadMode} onHueChange={useCallback((h) => setHue(h), [])} onSaturationChange={useCallback((s) => setSaturation(s), [])} onBrightnessChange={useCallback((b) => setBrightness(b), [])} />
+              <button onClick={() => setTriadMode(!triadMode)} className={`text-xs px-3 py-1 rounded-lg border font-medium transition-colors ${triadMode ? 'bg-sky-500/20 text-sky-400 border-sky-500/40' : 'bg-gray-950 text-gray-400 border-gray-800'}`}>{triadMode ? 'Modo Tríada: Activo' : 'Activar Modo Tríada'}</button>
             </div>
-
             <div className="md:col-span-2 flex flex-col justify-center gap-4">
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">HEX</label>
-                <input 
-                  type="text" 
-                  value={hexText} 
-                  onChange={(e) => handleHexChange(e.target.value)}
-                  onBlur={handleHexBlur}
-                  onFocus={() => setActiveInput('hex')}
-                  className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-sky-500 transition-colors"
-                />
+              <div className="flex flex-col gap-1"><label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">HEX</label><input type="text" value={hexText} onChange={(e) => handleHexChange(e.target.value)} onBlur={() => { if (!/^#[0-9A-Fa-f]{6}$/.test(hexText)) setHexText(currentHex.toUpperCase()); }} onFocus={() => setActiveInput('hex')} className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-sky-500 transition-colors" /></div>
+              <div className="grid grid-cols-3 gap-4">
+                {(['r', 'g', 'b'] as RgbKey[]).map((ch) => (
+                  <div key={ch} className="flex flex-col gap-1"><label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{ch}</label><input type="text" value={rgbText[ch]} onChange={(e) => handleRgbChange(ch, e.target.value)} onBlur={() => { handleRgbBlur(ch); setActiveInput(null); }} onFocus={() => setActiveInput('rgb')} className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white font-mono text-center focus:outline-none focus:border-sky-500 transition-colors" /></div>
+                ))}
               </div>
+              <div className="grid grid-cols-3 gap-4">
+                {(['h', 's', 'v'] as HsvKey[]).map((ch) => (
+                  <div key={ch} className="flex flex-col gap-1"><label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{ch}</label><input type="text" value={hsvText[ch]} onChange={(e) => handleHsvChange(ch, e.target.value)} onBlur={() => { handleHsvBlur(ch); setActiveInput(null); }} onFocus={() => setActiveInput('hsv')} className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white font-mono text-center focus:outline-none focus:border-sky-500 transition-colors" /></div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 mt-2">
+            <div className="flex items-center justify-between text-sm text-gray-400 px-1"><span>{filteredPalettes.length} {filteredPalettes.length !== 1 ? t('palettes') : t('palette_singular')}</span></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPalettes.slice(0, visibleCount).map((palette) => (
+                <PaletteCard key={palette.id} palette={palette} onCopy={useCallback((msg) => setToastMessage(msg), [])} currentHex={currentHex} triadColors={triadColors} />
+              ))}
+            </div>
+            {visibleCount < filteredPalettes.length && (
+
 
