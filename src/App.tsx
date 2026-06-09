@@ -179,12 +179,10 @@ export default function App() {
 
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6">
-          {/* Selector de idioma */}
           <div className="flex justify-end">
             <LanguageToggle />
           </div>
 
-          {/* Encabezado LuxPalette */}
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2.5">
@@ -200,35 +198,40 @@ export default function App() {
               </div>
               <p className="text-xs text-gray-500 mt-1 tracking-wide">{t('tagline')}</p>
             </div>
+            
+            <div className="flex items-center gap-4">
+              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            </div>
           </div>
 
-          {/* Bloque 1 Superior: Rueda de Color Expandida al Ancho */}
-          <div className="w-full bg-gray-900/30 border border-gray-800/80 rounded-2xl p-6 backdrop-blur-sm grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            <div className="md:col-span-1 flex justify-center">
+          {/* Sección avanzada de rueda de colores e inputs técnicos */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-900/40 p-6 rounded-2xl border border-gray-800/60 backdrop-blur-sm">
+            <div className="flex justify-center items-center">
               <ColorWheelAdvanced 
                 hue={hue} 
                 saturation={saturation} 
-                brightness={brightness} 
-                triadMode={triadMode}
-                triadColors={triadColors}
+                brightness={brightness}
                 onHueChange={handleWheelHueChange}
                 onSaturationChange={handleWheelSaturationChange}
                 onBrightnessChange={handleWheelBrightnessChange}
+                triadMode={triadMode}
+                onTriadModeToggle={() => setTriadMode(!triadMode)}
               />
             </div>
-            
-            <div className="md:col-span-2 flex flex-col gap-4">
-              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-medium text-gray-400">{t('triadHarmony')}</span>
-                  <button 
-                    onClick={() => setTriadMode(!triadMode)}
-                    className={`text-xs px-2.5 py-1 rounded-md font-medium transition-colors ${triadMode ? 'bg-sky-500 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
-                  >
-                    {triadMode ? t('enabled') : t('disabled')}
-                  </button>
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  {triadColors.map((c, idx) => (
-                    <div key={idx} className="flex flex-col gap-1">
-                      <div className="h-8 rounded-lg shadow-inner" style={{ backgroundColor: c }} />
+
+            <div className="md:col-span-2 flex flex-col justify-center gap-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">HEX</label>
+                <input 
+                  type="text" 
+                  value={hexText} 
+                  onChange={(e) => handleHexChange(e.target.value)}
+                  onBlur={handleHexBlur}
+                  onFocus={() => setActiveInput('hex')}
+                  className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-sky-500 transition-colors"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                {(['r', 'g', 'b'] as RgbKey[]).map((ch) => (
+                  <div key={ch} className="flex flex-col gap-1">
