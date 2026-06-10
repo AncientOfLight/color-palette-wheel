@@ -168,10 +168,10 @@ export default function App() {
     setSearchQuery('');
   }, []);
 
-  const handleColorCopy = useCallback((message: string) => {
-    setToastMessage(message);
+  const handleColorCopy = useCallback(() => {
+    setToastMessage(t('copied') || 'Copiado al portapapeles');
     setTimeout(() => setToastMessage(null), 1800);
-  }, []);
+  }, [t]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-950" style={{ backgroundColor: '#0b131f' }}>
@@ -228,4 +228,3 @@ export default function App() {
                 </button>
                 <button 
                   onClick={() => setTriadMode(true)}
-                  className={`flex-1 text-xs py-1.5 rounded-lg font-medium transition-colors ${triadMode ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'text-gray-400 hover:text-gray-200'}`}
