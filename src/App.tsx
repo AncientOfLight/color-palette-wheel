@@ -198,143 +198,34 @@ export default function App() {
               </div>
               <p className="text-xs text-gray-500 mt-1 tracking-wide">{t('tagline')}</p>
             </div>
+            <div className="flex items-center gap-4">
+              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <div className="lg:col-span-1">
-              <ColorWheelAdvanced
-                hue={hue}
-                saturation={saturation}
-                brightness={brightness}
-                triadMode={triadMode}
-                onHueChange={handleWheelHueChange}
-                onSaturationChange={handleWheelSaturationChange}
-                onBrightnessChange={handleWheelBrightnessChange}
+          {/* CONTENEDOR DE LA RUEDA E INPUTS EN PARALELO */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8 bg-gray-900/20 p-6 rounded-2xl border border-gray-800/40">
+            
+            {/* PANEL IZQUIERDO: Rueda e Interruptores abajo */}
+            <div className="lg:col-span-4 flex flex-col items-center justify-center">
+              <ColorWheelAdvanced 
+                hue={hue} 
+                saturation={saturation} 
+                brightness={brightness} 
+                triadMode={triadMode} 
+                onHueChange={handleWheelHueChange} 
+                onSaturationChange={handleWheelSaturationChange} 
+                onBrightnessChange={handleWheelBrightnessChange} 
               />
               
-              <div className="mt-4 bg-gray-900/50 border border-gray-800 rounded-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-medium text-gray-400">{t('triadHarmony')}</span>
-                  <button 
-                    onClick={() => setTriadMode(!triadMode)}
-                    className={`text-xs px-2.5 py-1 rounded-md font-medium transition-colors ${triadMode ? 'bg-sky-500 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
-                  >
-                    {triadMode ? t('enabled') : t('disabled')}
-                  </button>
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  {triadColors.map((c, idx) => (
-                    <div key={idx} className="flex flex-col gap-1">
-                      <div className="h-8 rounded-lg shadow-inner" style={{ backgroundColor: c }} />
-                      <span className="text-[10px] text-center font-mono text-gray-500">{c}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 space-y-4">
-              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
-                <span className="text-xs font-medium text-gray-400 mb-3 block">{t('colorCode')}</span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-[10px] text-gray-500 mb-1 block">HEX</label>
-                    <input
-                      type="text"
-                      value={hexText}
-                      onChange={e => handleHexChange(e.target.value)}
-                      onBlur={handleHexBlur}
-                      onFocus={() => setActiveInput('hex')}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm font-mono text-gray-200 focus:border-sky-500 focus:ring-1 focus:ring-sky-500/30 outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] text-gray-500 mb-1 block">RGB</label>
-                    <div className="flex gap-1">
-                      {(['r', 'g', 'b'] as RgbKey[]).map(ch => (
-                        <input
-                          key={ch}
-                          type="text"
-                          value={rgbText[ch]}
-                          onChange={e => handleRgbChange(ch, e.target.value)}
-                          onBlur={() => handleRgbBlur(ch)}
-                          onFocus={() => setActiveInput('rgb')}
-                          placeholder={ch.toUpperCase()}
-                          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-sm font-mono text-gray-200 focus:border-sky-500 focus:ring-1 focus:ring-sky-500/30 outline-none transition-colors"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-[10px] text-gray-500 mb-1 block">HSV</label>
-                    <div className="flex gap-1">
-                      {(['h', 's', 'v'] as HsvKey[]).map(ch => (
-                        <input
-                          key={ch}
-                          type="text"
-                          value={hsvText[ch]}
-                          onChange={e => handleHsvChange(ch, e.target.value)}
-                          onBlur={() => handleHsvBlur(ch)}
-                          onFocus={() => setActiveInput('hsv')}
-                          placeholder={ch.toUpperCase()}
-                          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-sm font-mono text-gray-200 focus:border-sky-500 focus:ring-1 focus:ring-sky-500/30 outline-none transition-colors"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <SearchBar value={searchQuery} onChange={setSearchQuery} />
-
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-gray-400">
-              <span className="font-semibold text-sky-400">{currentCategoryLabel}</span>
-              {' '}{t('showing')}{' '}
-              <span className="font-semibold text-gray-200">{displayedPalettes.length}</span>
-              {' '}{t('of')}{' '}
-              <span className="font-semibold text-gray-200">{filteredPalettes.length}</span>{' '}
-              {filteredPalettes.length === 1 ? t('palette_singular') : t('palettes')}
-            </p>
-          </div>
-
-          {displayedPalettes.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-gray-400 text-lg mb-2">{t('noPalettesFound')}</p>
-              <p className="text-gray-500 text-sm">{t('noPalettesHint')}</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {displayedPalettes.map(palette => (
-                <PaletteCard
-                  key={palette.id}
-                  palette={palette}
-                  onColorCopy={handleColorCopy}
-                />
-              ))}
-            </div>
-          )}
-
-          {hasMore && (
-            <div className="text-center mt-8 mb-4">
-              <button
-                onClick={() => setVisibleCount(prev => prev + PAGE_SIZE)}
-                className="px-6 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-              >
-                {t('loadMore')} ({filteredPalettes.length - visibleCount} {t('remaining')})
-              </button>
-            </div>
-          )}
-        </div>
-      </main>
-
-      {toastMessage && (
-        <ToastNotification key={toastMessage} message={toastMessage} />
-      )}
-
-      <DonationModal isOpen={donationOpen} onClose={() => setDonationOpen(false)} />
-    </div>
-  );
-}
+              {/* Botones de Selección alineados en la parte inferior */}
+              <div className="flex items-center bg-gray-950 p-1 rounded-xl border border-gray-800 mt-4 w-full max-w-[280px]">
+                <button 
+                  onClick={() => setTriadMode(false)}
+                  className={`flex-1 text-xs py-1.5 rounded-lg font-medium transition-colors ${!triadMode ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'text-gray-400 hover:text-gray-200'}`}
+                >
+                  Color Único
+                </button>
+                <button 
+                  onClick={() => setTriadMode(true)}
+                  className={`flex-1 text-xs py-1.5 rounded-lg font-medium transition-colors ${triadMode ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'text-gray-400 hover:text-gray-200'}`}
